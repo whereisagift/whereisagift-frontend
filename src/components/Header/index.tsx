@@ -1,7 +1,11 @@
 "use client";
 import s from "./index.module.css";
-import { Menu, MenuProps, Tabs, TabsProps } from "antd";
+import { Menu, MenuProps } from "antd";
 import { usePathname, useRouter } from "next/navigation";
+import {
+  TelegramButton,
+  type TelegramUser,
+} from "@/components/TelegrammButton";
 
 const items = [
   {
@@ -18,6 +22,8 @@ const items = [
   },
 ] as const satisfies Required<MenuProps>["items"][number][];
 
+const TELEGRAM_BOT = process.env.NEXT_PUBLIC_TELEGRAM_BOT ?? "";
+
 export const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -25,6 +31,11 @@ export const Header = () => {
   const handlerClick: Required<MenuProps>["onClick"] = (item) => {
     router.push(item.key);
   };
+
+  const handlerLogin = (user: TelegramUser) => {
+    console.log(JSON.parse(JSON.stringify(user)));
+  };
+
   return (
     <div className={s.container}>
       <Menu
@@ -33,6 +44,11 @@ export const Header = () => {
         onClick={handlerClick}
         activeKey={pathname}
         mode="horizontal"
+      />
+      <TelegramButton
+        telegramLogin={TELEGRAM_BOT}
+        size="medium"
+        onLogin={handlerLogin}
       />
     </div>
   );
