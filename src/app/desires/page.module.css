@@ -1,0 +1,12 @@
+
+.container {
+    margin-top: 4vw;
+}
+
+.containerLeftNav {
+    position: sticky;
+    top: calc(4vw + 46px);
+    max-width: 250px;
+    max-height: max-content;
+    margin-left: 2vw;
+}

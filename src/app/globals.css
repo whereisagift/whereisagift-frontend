@@ -76,7 +76,7 @@
     @apply border-border;
   }
   body {
-    background: url("./paperFacture.jpg");
+    background: url("../assets/paperFacture.jpg");
     background-size: cover;
     @apply bg-background text-foreground;
     margin: 0;
