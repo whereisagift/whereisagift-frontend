@@ -44,7 +44,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          IMAGE_NAME=ghcr.io/YOUR_ORG/whereisagift-frontend
+          IMAGE_NAME=ghcr.io/whereisagift/whereisagift-frontend
           VERSION=$(git rev-parse --short HEAD)
           docker build -t $IMAGE_NAME:$VERSION -t $IMAGE_NAME:latest .
           docker push $IMAGE_NAME:$VERSION
