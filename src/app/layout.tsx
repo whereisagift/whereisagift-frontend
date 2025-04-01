@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 const poiret = Poiret_One({
   display: "swap",
   weight: ["400"],
+  subsets: ["latin"],
 });
 
 export default function RootLayout({
