@@ -1,7 +1,4 @@
-name: Build Frontend
-
-permissions:
-  packages: write
+name: Build and Push Next.js to GHCR
 
 on:
   push:
@@ -9,45 +6,60 @@ on:
       - main
       - develop
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      # Кэшируем node_modules, чтобы не устанавливать зависимости заново
+      - name: Cache Node Modules
+        uses: actions/cache@v3
         with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Restore Next.js cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.npm
-            ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-npm-
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Build Next.js app
+      # Кэшируем билд Next.js
+      - name: Cache Next.js Build
+        uses: actions/cache@v3
+        with:
+          path: .next
+          key: ${{ runner.os }}-next-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-next-build-
+
+      - name: Build Next.js
         run: npm run build
 
-      - name: Log in to GitHub Container Registry (GHCR)
+      - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
 
-      - name: Build and push Docker image
+      - name: Prepare Build Artifacts
+        run: tar -czf next-build.tar.gz .next node_modules package.json package-lock.json public
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-build
+          path: next-build.tar.gz
+
+      - name: Build and Push Docker Image
         run: |
           IMAGE_NAME=ghcr.io/whereisagift/whereisagift-frontend
-          VERSION=$(git rev-parse --short HEAD)
-          docker build -t $IMAGE_NAME:$VERSION -t $IMAGE_NAME:latest .
-          docker push $IMAGE_NAME:$VERSION
+          TAG=${{ github.sha }}
+
+          docker build -t $IMAGE_NAME:$TAG -t $IMAGE_NAME:latest .
+          docker push $IMAGE_NAME:$TAG
           docker push $IMAGE_NAME:latest
 
       - name: Checkout whereisagift-devops repository
