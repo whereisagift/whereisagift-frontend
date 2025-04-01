@@ -1,0 +1,53 @@
+name: Build Frontend
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout репозиторий
+        uses: actions/checkout@v4
+
+      - name: Установка Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Установка зависимостей
+        run: npm ci
+
+      - name: Билд Next.js
+        run: npm run build
+
+      - name: Логин в GitHub Container Registry (GHCR)
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+
+      - name: Сборка и пуш Docker-образа
+        run: |
+          IMAGE_NAME=ghcr.io/whereisagift/whereisagift-frontend
+          VERSION=$(git rev-parse --short HEAD)
+          docker build -t $IMAGE_NAME:$VERSION -t $IMAGE_NAME:latest .
+          docker push $IMAGE_NAME:$VERSION
+          docker push $IMAGE_NAME:latest
+
+      - name: Обновление whereisagift-devops
+        uses: actions/checkout@v4
+        with:
+          repository: whereisagift/whereisagift-devops
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Запись версии образа
+        run: |
+          echo "FRONTEND_VERSION=$(git rev-parse --short HEAD)" > frontend.version
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add frontend.version
+          git commit -m "Update frontend version to $(git rev-parse --short HEAD)"
+          git push
