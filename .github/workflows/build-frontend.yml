@@ -70,9 +70,9 @@ jobs:
 
       - name: Update frontend version in whereisagift-devops
         run: |
-          echo "FRONTEND_VERSION=$(git rev-parse --short HEAD)" > frontend.version
+          echo "FRONTEND_VERSION=$(git rev-parse --short HEAD)" > ./frontend/version
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add frontend.version
+          git add ./frontend/version
           git commit -m "Update frontend version to $(git rev-parse --short HEAD)"
           git push
