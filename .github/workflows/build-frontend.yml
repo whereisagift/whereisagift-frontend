@@ -19,12 +19,10 @@ jobs:
 
       # Кэшируем node_modules, чтобы не устанавливать зависимости заново
       - name: Cache Node Modules
-        uses: actions/cache@v3
+        uses: actions/setup-node@v4
         with:
-          path: node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+          node-version: 20
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
