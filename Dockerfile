@@ -4,8 +4,7 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 
 # Копируем билд и зависимости из CI
-COPY next-build.tar.gz ./
-RUN tar -xzf next-build.tar.gz && rm next-build.tar.gz
+COPY .next node_modules package.json package-lock.json public ./
 
 # Expose порты (3000 — стандартный порт Next.js)
 EXPOSE 3000

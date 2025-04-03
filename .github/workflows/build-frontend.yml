@@ -11,10 +11,8 @@ permissions:
   packages: write
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
-    outputs:
-      artifact-name: next-build
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -31,24 +29,6 @@ jobs:
       - name: Build Next.js
         run: npm run build
 
-      - name: Prepare Build Artifacts
-        run: tar -czf next-build.tar.gz .next node_modules package.json package-lock.json public
-
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: next-build
-          path: next-build.tar.gz
-
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Build Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: next-build
-
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
 
@@ -62,7 +42,7 @@ jobs:
           docker push $IMAGE_NAME:latest
 
   deploy:
-    needs: publish
+    needs: build-and-publish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout whereisagift-devops repository
