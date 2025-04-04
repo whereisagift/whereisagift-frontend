@@ -17,18 +17,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Cache Node Modules
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Build Next.js
-        run: npm run build
-
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
 
@@ -56,18 +44,16 @@ jobs:
           BRANCH_NAME=${{ github.ref_name }}
           
           if [[ "$BRANCH_NAME" == "main" ]]; then
-            DOCKER_COMPOSE_PATH="./frontend/production/docker-compose.yml"
-            TAG="production"
+            DOCKER_COMPOSE_PATH="./production/frontend/compose.yml"
           else
-            DOCKER_COMPOSE_PATH="./frontend/develop/docker-compose.yml"
-            TAG="develop"
+            DOCKER_COMPOSE_PATH="./develop/frontend/compose.yml"
           fi
           
-          # Обновляем docker-compose.yml, заменяя версию образа
+          # Обновляем compose.yml, заменяя версию образа
           sed -i "s|image: ghcr.io/whereisagift/whereisagift-frontend:[^ ]*|image: ghcr.io/whereisagift/whereisagift-frontend:${{ github.sha }}|" "$DOCKER_COMPOSE_PATH"
           
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add "$DOCKER_COMPOSE_PATH"
-          git commit -m "Update frontend image version in $DOCKER_COMPOSE_PATH to ${{ github.sha }}"
+          git commit -m "Update frontend image version to ${{ github.sha }}"
           git push
