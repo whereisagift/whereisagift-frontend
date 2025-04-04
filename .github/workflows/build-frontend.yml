@@ -54,18 +54,20 @@ jobs:
       - name: Update frontend version in whereisagift-devops
         run: |
           BRANCH_NAME=${{ github.ref_name }}
-
+          
           if [[ "$BRANCH_NAME" == "main" ]]; then
-            VERSION_PATH="./frontend/production/version"
+            DOCKER_COMPOSE_PATH="./frontend/production/docker-compose.yml"
+            TAG="production"
           else
-            VERSION_PATH="./frontend/development/version"
+            DOCKER_COMPOSE_PATH="./frontend/development/docker-compose.yml"
+            TAG="develop"
           fi
-
-          mkdir -p $(dirname "$VERSION_PATH")
-          echo "FRONTEND_VERSION=$(git rev-parse --short HEAD)" > "$VERSION_PATH"
-
+          
+          # Обновляем docker-compose.yml, заменяя версию образа
+          sed -i "s|image: ghcr.io/whereisagift/whereisagift-frontend:[^ ]*|image: ghcr.io/whereisagift/whereisagift-frontend:${{ github.sha }}|" "$DOCKER_COMPOSE_PATH"
+          
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add "$VERSION_PATH"
-          git commit -m "Update frontend version in $VERSION_PATH to $(git rev-parse --short HEAD)"
+          git add "$DOCKER_COMPOSE_PATH"
+          git commit -m "Update frontend image version in $DOCKER_COMPOSE_PATH to ${{ github.sha }}"
           git push
