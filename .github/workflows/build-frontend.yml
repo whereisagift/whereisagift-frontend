@@ -59,7 +59,7 @@ jobs:
             DOCKER_COMPOSE_PATH="./frontend/production/docker-compose.yml"
             TAG="production"
           else
-            DOCKER_COMPOSE_PATH="./frontend/development/docker-compose.yml"
+            DOCKER_COMPOSE_PATH="./frontend/develop/docker-compose.yml"
             TAG="develop"
           fi
           
