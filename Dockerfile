@@ -12,6 +12,10 @@ RUN npm ci
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+
+ARG NEXT_PUBLIC_TELEGRAM_BOT
+ENV NEXT_PUBLIC_TELEGRAM_BOT=$NEXT_PUBLIC_TELEGRAM_BOT
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
