@@ -25,10 +25,15 @@ jobs:
         run: |
           IMAGE_NAME=ghcr.io/whereisagift/whereisagift-frontend
           TAG=${{ github.sha }}
+          BRANCH_TAG=${{ github.ref_name == 'main' && 'production' || 'develop' }}
 
-          docker build --build-arg NEXT_PUBLIC_TELEGRAM_BOT=${{ secrets.NEXT_PUBLIC_TELEGRAM_BOT }} -t $IMAGE_NAME:$TAG -t $IMAGE_NAME:latest .
+          # Build the Docker image with the necessary tags (SHA, latest, production/develop)
+          docker build --build-arg NEXT_PUBLIC_TELEGRAM_BOT=${{ secrets.NEXT_PUBLIC_TELEGRAM_BOT }} -t $IMAGE_NAME:$TAG -t $IMAGE_NAME:latest -t $IMAGE_NAME:$BRANCH_TAG .
+
+          # Push the Docker images with the tags
           docker push $IMAGE_NAME:$TAG
           docker push $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$BRANCH_TAG
 
   deploy:
     needs: build-and-publish
