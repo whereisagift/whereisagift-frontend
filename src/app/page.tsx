@@ -4,7 +4,7 @@ import { Header } from "components/Header";
 const Home = () => {
   return (
     <>
-      <Checkbox>skdjkdj</Checkbox>
+      <Checkbox>Олег</Checkbox>
     </>
   );
 };
