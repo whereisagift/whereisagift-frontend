@@ -6,7 +6,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies using npm
-COPY package.json package-lock.json ./
+COPY ../package.json package-lock.json ./
 RUN npm ci
 
 # Rebuild the source code only when needed
@@ -17,7 +17,7 @@ ARG NEXT_PUBLIC_TELEGRAM_BOT
 ENV NEXT_PUBLIC_TELEGRAM_BOT=$NEXT_PUBLIC_TELEGRAM_BOT
 
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY .. .
 
 # Disable Next.js telemetry during the build
 ENV NEXT_TELEMETRY_DISABLED 1
