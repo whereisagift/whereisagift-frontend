@@ -10,3 +10,12 @@
     max-height: max-content;
     margin-left: 2vw;
 }
+
+.buttonToUp {
+    position: fixed;
+    bottom: 4vw;
+
+    min-width: 4vw !important;
+    min-height: 4vw;
+    border-radius: 50%;
+}
