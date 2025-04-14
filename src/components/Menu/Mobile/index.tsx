@@ -14,7 +14,9 @@ export const Mobile: React.FC<MobileProps> = () => {
   };
 
   return (
-    <div className={s.container}>
+    <div
+      className={classNames(s.container, { [s.container_active]: isMenuOpen })}
+    >
       <div
         className={classNames(s.burger, { [s.active]: isMenuOpen })}
         aria-label="Открыть главное меню"

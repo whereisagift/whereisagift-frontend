@@ -1,6 +1,9 @@
 .container {
   position: absolute;
   width: 100%;
+  height: 46px;
+}
+.container_active {
   height: calc(100vh - 46px);
 }
 
