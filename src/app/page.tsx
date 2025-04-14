@@ -3,7 +3,7 @@ import { Checkbox } from "antd";
 const Home = () => {
   return (
     <>
-      <Checkbox>skdjkdj</Checkbox>
+      <Checkbox>Олеги</Checkbox>
     </>
   );
 };
