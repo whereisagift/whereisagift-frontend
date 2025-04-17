@@ -1,0 +1,74 @@
+.container {
+  position: absolute;
+  width: 100%;
+  height: 46px;
+}
+.container_active {
+  height: calc(100vh - 46px);
+}
+
+.menu {
+  z-index: 50;
+  height: 100%;
+  width: 100%;
+}
+
+.burger {
+  opacity: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  position: relative;
+  z-index: 50;
+
+  width: 30px;
+  height: 18px;
+  margin: 14px 2vw;
+}
+.burger span {
+    transform: scale(1);
+
+    width: 100%;
+    height: 1px;
+    background-color: black;
+  }
+.burger:before, .burger:after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: black;
+    transition: all 0.3s ease 0s;
+  }
+.burger:before {
+    top: 0;
+  }
+.burger:after {
+    bottom: 0;
+  }
+.burger.active  span {
+      transform: scale(0);
+    }
+.burger.active:before {
+      transform: rotate(-45deg) translate(0, -50%);
+      top: 50%;
+    }
+.burger.active:after {
+      transform: rotate(45deg) translate(0, 50%);
+      bottom: 50%;
+    }
+
+
+@media (max-width: 900px){
+  .burger {
+    opacity: 1;
+
+  }
+
+  .nav {
+
+  }
+
+}

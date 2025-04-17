@@ -1,6 +1,13 @@
+
 .container {
-  background-color: white;
-  height: 100%;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 0.5fr 3fr 0.5fr;
+
   position: sticky;
+  background-color: white;
+
+  top: 0;
+  z-index: 40;
+  width: 100%;
+  height: 46px;
 }
