@@ -3,13 +3,22 @@ import { Card, Flex } from "antd";
 import s from "./index.module.css";
 import desireDefaultImg from "assets/desireDefaultImg.png";
 
-export const DesireCards = () => {
+type DesireCardsProps = {
+  display: "Mobile" | "Desktop";
+};
+
+enum GapMode {
+  Mobile = "small",
+  Desktop = "large",
+}
+
+export const DesireCards: React.FC<DesireCardsProps> = ({ display }) => {
   const desires = mock.desires;
   return (
     <Flex
       justify="space-around"
       autoCapitalize="words"
-      gap="large"
+      gap={GapMode[display]}
       wrap
       className={s.cardContainer}
     >

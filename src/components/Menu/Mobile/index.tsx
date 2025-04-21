@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import s from "./index.module.css";
 import classNames from "classnames";
-import { useMenuRouter } from "@/utils";
+import { useMainMenuRouter } from "@/utils";
 import { Menu } from "antd";
 
 type MobileProps = {};
 export const Mobile: React.FC<MobileProps> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { pathname, handlerClick, items } = useMenuRouter();
+  const { pathname, items } = useMainMenuRouter();
 
   const menuOnClick = () => {
     setIsMenuOpen((prevState) => !prevState);
@@ -25,12 +25,7 @@ export const Mobile: React.FC<MobileProps> = () => {
         <span></span>
       </div>
       {isMenuOpen && (
-        <Menu
-          items={items}
-          className={s.menu}
-          onClick={handlerClick}
-          activeKey={pathname}
-        />
+        <Menu items={items} className={s.menu} activeKey={pathname} />
       )}
     </div>
   );

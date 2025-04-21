@@ -1,14 +1,13 @@
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { MenuProps } from "antd";
 
-export type MenuRouterType = () => {
+export type MainMenuRouterType = () => {
   pathname: string;
-  handlerClick: Required<MenuProps>["onClick"];
   items: ItemsType;
 };
 export type ItemsType = Required<MenuProps>["items"][number][];
 
-const items: ItemsType = [
+const itemsMainMenu: ItemsType = [
   {
     key: "/",
     label: <a href="/">Главная</a>,
@@ -23,13 +22,8 @@ const items: ItemsType = [
   },
 ];
 
-export const useMenuRouter: MenuRouterType = () => {
+export const useMainMenuRouter: MainMenuRouterType = () => {
   const pathname = usePathname();
-  const router = useRouter();
 
-  const handlerClick: Required<MenuProps>["onClick"] = (item) => {
-    router.push(item.key);
-  };
-
-  return { pathname, handlerClick, items };
+  return { pathname, items: itemsMainMenu };
 };

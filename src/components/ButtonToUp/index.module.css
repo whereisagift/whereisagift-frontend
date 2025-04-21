@@ -1,0 +1,17 @@
+.button_to_up {
+  position: fixed;
+  bottom: 4vw;
+  left: 2vw;
+
+  min-width: calc(var(--main-header-size)+ 1vw) !important;
+  min-height: calc(var(--main-header-size)+ 1vw);
+  border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+  .button_to_up {
+    min-width: calc(var(--main-header-size)+ 2vw) !important;
+    min-height: calc(var(--main-header-size)+ 2vw);
+    bottom: calc(4vw + var(--secondary-header-size));
+  }
+}

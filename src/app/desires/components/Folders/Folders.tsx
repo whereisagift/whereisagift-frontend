@@ -1,27 +1,31 @@
 import { MenuProps, Menu } from "antd";
 import s from "./index.module.css";
-import * as mock from "mock.json";
 
 type MenuItem = Required<MenuProps>["items"][number];
+type FoldersProps = {
+  collapsed?: boolean;
+};
 
-export const Folders = () => {
-  const folders = mock.folders;
+const items: MenuItem[] = [
+  {
+    key: "5352552",
+    label: "Все",
+  },
+  {
+    key: "53525452",
+    label: "ДР",
+  },
+  {
+    key: "3535644",
+    label: "Свадьба",
+  },
+  {
+    key: "654777",
+    label: "Мои Идеи",
+  },
+];
 
-  const items = [
-    {
-      key: "/",
-      label: "ДР",
-    },
-    {
-      key: "/desires",
-      label: "Свадьба",
-    },
-    {
-      key: "/ideas",
-      label: "Мои Идеи",
-    },
-  ] as const satisfies Required<MenuProps>["items"][number][];
-
+export const Folders: React.FC<FoldersProps> = ({ collapsed }) => {
   return (
     <Menu
       className={s.menu}
@@ -29,6 +33,8 @@ export const Folders = () => {
       defaultOpenKeys={["sub1"]}
       mode="inline"
       items={items}
+      inlineCollapsed={collapsed}
+      multiple
     />
   );
 };

@@ -3,3 +3,16 @@
 .menu {
     border-radius: 8px;
 }
+
+@media (max-width: 900px) {
+
+  .menu {
+    position: absolute;
+    bottom: calc(2vw + var(--secondary-header-size));
+    right: 2vw;
+    z-index: 50;
+    height: max-content;
+    width: max-content;
+    border: 1px solid #d9d9d9;
+  }
+}
