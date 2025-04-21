@@ -4,12 +4,12 @@ import s from "./index.module.css";
 import desireDefaultImg from "assets/desireDefaultImg.png";
 
 type DesireCardsProps = {
-  display: "mobile" | "desktop";
+  display: "Mobile" | "Desktop";
 };
 
-enum gapMode {
-  mobile = "small",
-  desktop = "large",
+enum GapMode {
+  Mobile = "small",
+  Desktop = "large",
 }
 
 export const DesireCards: React.FC<DesireCardsProps> = ({ display }) => {
@@ -18,7 +18,7 @@ export const DesireCards: React.FC<DesireCardsProps> = ({ display }) => {
     <Flex
       justify="space-around"
       autoCapitalize="words"
-      gap={gapMode[display]}
+      gap={GapMode[display]}
       wrap
       className={s.cardContainer}
     >

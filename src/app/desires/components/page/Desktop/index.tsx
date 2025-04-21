@@ -38,7 +38,7 @@ export const Desktop = () => {
         </Button>
         <Folders collapsed={collapsed} />
       </Flex>
-      <DesireCards display="desktop" />
+      <DesireCards display="Desktop" />
     </Flex>
   );
 };
