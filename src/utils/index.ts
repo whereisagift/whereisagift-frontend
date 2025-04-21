@@ -1,1 +1,5 @@
-export { useMenuRouter, type MenuRouterType, type ItemsType } from "./menu";
+export {
+  useMainMenuRouter,
+  type MainMenuRouterType,
+  type ItemsType,
+} from "./menu/useMainMenuRouter";
