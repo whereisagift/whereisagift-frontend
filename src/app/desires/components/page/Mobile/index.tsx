@@ -1,10 +1,10 @@
 "use client";
 
+import { FolderOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import { useState } from "react";
 import { DesireCards, Folders } from "app/desires/components";
 import s from "./index.module.css";
-import { FolderOutlined, PlusOutlined } from "@ant-design/icons";
-import { useState } from "react";
 
 export const Mobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

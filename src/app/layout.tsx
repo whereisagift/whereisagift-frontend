@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Poiret_One } from "next/font/google";
+import { ReactNode } from "react";
 
 import "./globals.css";
 import { Header } from "components/Header";
+import { ApolloWrapper } from "./ApolloWrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,14 +20,18 @@ const poiret = Poiret_One({
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en" className={poiret.className}>
-      <head></head>
+      <head>
+        <title>WhereIsAGift</title>
+      </head>
       <body>
-        <Header />
-        {children}
+        <ApolloWrapper>
+          <Header />
+          {children}
+        </ApolloWrapper>
       </body>
     </html>
   );

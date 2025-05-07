@@ -1,4 +1,4 @@
-import { MenuProps, Menu } from "antd";
+import { Menu, type MenuProps } from "antd";
 import s from "./index.module.css";
 
 type MenuItem = Required<MenuProps>["items"][number];

@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { Button, Flex } from "antd";
-import { DesireCards, Folders } from "app/desires/components";
-import s from "./index.module.css";
 import {
   DoubleLeftOutlined,
   DoubleRightOutlined,
   FolderAddOutlined,
   GiftOutlined,
 } from "@ant-design/icons";
+import { Button, Flex } from "antd";
+import { useState } from "react";
+import s from "./index.module.css";
+import { DesireCards, Folders } from "../..";
 
 export const Desktop = () => {
   const [collapsed, setCollapsed] = useState(false);

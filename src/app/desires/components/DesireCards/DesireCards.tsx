@@ -1,7 +1,7 @@
-import * as mock from "mock.json";
 import { Card, Flex } from "antd";
-import s from "./index.module.css";
+import * as mock from "mock.json";
 import desireDefaultImg from "assets/desireDefaultImg.png";
+import s from "./index.module.css";
 
 type DesireCardsProps = {
   display: "Mobile" | "Desktop";
