@@ -1,9 +1,5 @@
 
-.cardContainer {
-    margin: 0 2vw;
+.cardsContainer {
+  margin: 0 2vw;
 }
 
-.card {
-    max-width: 200px;
-    transition: box-shadow 0.3s;
-}

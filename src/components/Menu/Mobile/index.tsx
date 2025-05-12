@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import s from "./index.module.css";
-import classNames from "classnames";
-import { useMainMenuRouter } from "@/utils";
 import { Menu } from "antd";
+import classNames from "classnames";
+import React, { useState } from "react";
+import { useMainMenuRouter } from "@/utils";
+import s from "./index.module.css";
 
-type MobileProps = {};
+type MobileProps = object;
 export const Mobile: React.FC<MobileProps> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { pathname, items } = useMainMenuRouter();

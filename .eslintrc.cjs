@@ -1,18 +1,50 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    "eslint:recommended",
+    "next/typescript",
+    "plugin:react-hooks/recommended",
+    "next/core-web-vitals",
+    "prettier",
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+    "@next/next/no-img-element": "off",
+    "import/order": [
+      2,
+      {
+        groups: [
+          "external",
+          "builtin",
+          "internal",
+          "sibling",
+          "parent",
+          "index",
+        ],
+        pathGroups: [
+          {
+            pattern: "components",
+            group: "internal",
+          },
+          {
+            pattern: "common",
+            group: "internal",
+          },
+          {
+            pattern: "routes/ **",
+            group: "internal",
+          },
+          {
+            pattern: "assets/**",
+            group: "internal",
+            position: "after",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["internal"],
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+      },
     ],
   },
-}
+};

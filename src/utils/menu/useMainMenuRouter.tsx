@@ -1,5 +1,6 @@
+import { type MenuProps } from "antd";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MenuProps } from "antd";
 
 export type MainMenuRouterType = () => {
   pathname: string;
@@ -10,7 +11,7 @@ export type ItemsType = Required<MenuProps>["items"][number][];
 const itemsMainMenu: ItemsType = [
   {
     key: "/",
-    label: <a href="/">Главная</a>,
+    label: <Link href="/">Главная</Link>,
   },
   {
     key: "/desires",
