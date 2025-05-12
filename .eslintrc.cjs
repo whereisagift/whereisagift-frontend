@@ -8,6 +8,7 @@ module.exports = {
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   rules: {
+    "@next/next/no-img-element": "off",
     "import/order": [
       2,
       {

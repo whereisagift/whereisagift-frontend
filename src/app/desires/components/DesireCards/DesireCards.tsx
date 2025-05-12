@@ -1,6 +1,6 @@
-import { Card, Flex } from "antd";
+import { Flex } from "antd";
+import { DesireCard } from "app/desires/components/DesireCards/DesireCard";
 import * as mock from "mock.json";
-import desireDefaultImg from "assets/desireDefaultImg.png";
 import s from "./index.module.css";
 
 type DesireCardsProps = {
@@ -12,30 +12,35 @@ enum GapMode {
   Desktop = "large",
 }
 
+export type Desire = {
+  name: string;
+  url: string;
+  pictureUrl?: string;
+  booking?: Booking;
+  orderDate?: string;
+  price?: string;
+};
+
+export type Booking = {
+  reservist: {
+    id: string;
+    nickname: string;
+  };
+  date: string;
+};
+
 export const DesireCards: React.FC<DesireCardsProps> = ({ display }) => {
-  const desires = mock.desires;
+  const desires: Desire[] = mock.desires;
   return (
     <Flex
       justify="space-around"
       autoCapitalize="words"
       gap={GapMode[display]}
       wrap
-      className={s.cardContainer}
+      className={s.cardsContainer}
     >
       {desires.map((desire, index) => (
-        <Card
-          key={`${desire.url}${index}`}
-          className={s.card}
-          hoverable
-          cover={
-            <img
-              alt="desire"
-              src={desire?.pictureUrl ?? desireDefaultImg.src}
-            />
-          }
-        >
-          <p>{desire.name}</p>
-        </Card>
+        <DesireCard key={`${desire.url}${index}`} desire={desire} likeable />
       ))}
     </Flex>
   );

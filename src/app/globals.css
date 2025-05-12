@@ -47,8 +47,8 @@
     --main-header-size: 46px;
     --secondary-header-size: 60px;
 
-    --mobile-size: 900px;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -81,6 +81,7 @@
   * {
     @apply border-border;
   }
+
   body {
     background: url("../assets/paperFacture.jpg");
     background-size: cover;
