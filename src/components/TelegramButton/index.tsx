@@ -1,6 +1,7 @@
 "use client"; // если ты используешь App Router
 
 import { memo, useEffect, useRef } from "react";
+
 import s from "./index.module.css";
 
 export interface TelegramUser {

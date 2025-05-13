@@ -3,7 +3,10 @@
 import { FolderOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useState } from "react";
-import { DesireCards, Folders } from "app/desires/components";
+
+import { DesireCards } from "../../DesireCards";
+import { Folders } from "../../Folders";
+
 import s from "./index.module.css";
 
 export const Mobile = () => {

@@ -1,6 +1,8 @@
-import { Mobile, Desktop } from "app/desires/components";
-import { ButtonToUp } from "@/components/ButtonToUp";
 import { Flex } from "antd";
+
+import { ButtonToUp } from "@/components/ButtonToUp";
+
+import { Desktop, Mobile } from "./components";
 
 const Desires = () => {
   return (

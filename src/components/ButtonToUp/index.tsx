@@ -1,6 +1,8 @@
-import { Button } from "antd";
-import s from "./index.module.css";
 import { ArrowUpOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+
+import s from "./index.module.css";
+
 
 export const ButtonToUp = () => {
   return (
