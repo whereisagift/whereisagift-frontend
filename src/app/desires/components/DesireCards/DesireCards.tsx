@@ -1,6 +1,8 @@
 import { Flex } from "antd";
-import { DesireCard } from "app/desires/components/DesireCards/DesireCard";
+
 import * as mock from "mock.json";
+
+import { DesireCard } from "./DesireCard";
 import s from "./index.module.css";
 
 type DesireCardsProps = {

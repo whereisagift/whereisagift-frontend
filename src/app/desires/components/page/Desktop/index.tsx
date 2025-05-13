@@ -8,8 +8,11 @@ import {
 } from "@ant-design/icons";
 import { Button, Flex } from "antd";
 import { useState } from "react";
+
+import { DesireCards } from "../../DesireCards";
+import { Folders } from "../../Folders";
+
 import s from "./index.module.css";
-import { DesireCards, Folders } from "../..";
 
 export const Desktop = () => {
   const [collapsed, setCollapsed] = useState(false);

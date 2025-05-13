@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
-import { Like } from "app/desires/components/DesireCards/Like";
+
+import { Like } from "../Like";
+
 import s from "./index.module.css";
 
 type CardProps = {

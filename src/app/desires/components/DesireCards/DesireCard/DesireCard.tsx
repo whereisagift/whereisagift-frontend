@@ -1,8 +1,12 @@
 import cn from "classnames";
+
 import { Card } from "@/components/Card";
-import { DesireButton } from "app/desires/components/DesireCards/DesireButton";
-import { Desire } from "app/desires/components/DesireCards/DesireCards";
+
 import desireDefaultImg from "assets/desireDefaultImg.png";
+
+import { DesireButton } from "../DesireButton";
+import { type Desire } from "../DesireCards";
+
 import s from "./index.module.css";
 
 type DesireCardProps = {

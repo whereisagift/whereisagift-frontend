@@ -1,7 +1,8 @@
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import React from "react";
-import { Desire } from "app/desires/components/DesireCards/DesireCards";
+
+import { type Desire } from "../../DesireCards";
 
 type ButtonContentProps = {
   desire?: Desire;

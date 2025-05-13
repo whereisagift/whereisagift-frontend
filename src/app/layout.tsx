@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 
 import "./globals.css";
 import { Header } from "components/Header";
+
 import { ApolloWrapper } from "./ApolloWrapper";
 
 export const metadata: Metadata = {

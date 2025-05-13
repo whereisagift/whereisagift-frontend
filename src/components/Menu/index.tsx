@@ -1,6 +1,6 @@
 "use client";
-import { Mobile } from "@/components/Menu/Mobile";
-import { Desktop } from "@/components/Menu/Desktop";
+import { Desktop } from "./Desktop";
+import { Mobile } from "./Mobile";
 
 export const Menu = () => {
   return (

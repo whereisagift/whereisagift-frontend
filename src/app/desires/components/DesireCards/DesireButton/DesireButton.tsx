@@ -2,10 +2,12 @@
 
 import { Button } from "antd";
 import { useState } from "react";
-import { ButtonContent } from "app/desires/components/DesireCards/DesireButton/ButtonContent";
-import { Desire } from "app/desires/components/DesireCards/DesireCards";
 
+import { type Desire } from "../DesireCards";
+
+import { ButtonContent } from "./ButtonContent";
 import s from "./index.module.css";
+
 
 type ButtonContentProps = {
   desire: Desire;

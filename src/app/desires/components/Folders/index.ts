@@ -1,1 +1,1 @@
-export { Folders } from "app/desires/components/Folders/Folders";
+export { Folders } from "./Folders";
