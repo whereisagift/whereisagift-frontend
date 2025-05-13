@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 
 import { Like } from "../Like";
 
@@ -12,7 +12,7 @@ type CardProps = {
   children?: ReactNode;
 };
 
-export const Card: React.FC<CardProps> = ({
+export const Card: FC<CardProps> = ({
   image,
   content,
   likeable,

@@ -40,6 +40,12 @@
       ],
       "@/utils/*": [
         "./utils/*"
+      ],
+      "@/providers": [
+        "./providers"
+      ],
+      "@/providers/*": [
+        "./providers/*"
       ]
     },
     "target": "ES2017"

@@ -8,7 +8,6 @@ import { type Desire } from "../DesireCards";
 import { ButtonContent } from "./ButtonContent";
 import s from "./index.module.css";
 
-
 type ButtonContentProps = {
   desire: Desire;
 };
@@ -23,6 +22,7 @@ export const DesireButton: React.FC<ButtonContentProps> = ({ desire }) => {
       className={s.button}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => console.log("jghg")}
     >
       <ButtonContent desire={isHovered ? undefined : desire} />
     </Button>
