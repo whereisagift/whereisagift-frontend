@@ -52,7 +52,7 @@ export const Desktop = () => {
         <Folders collapsed={collapsed} />
       </div>
 
-      <DesireCards display="Desktop" />
+      <DesireCards />
     </div>
   );
 };

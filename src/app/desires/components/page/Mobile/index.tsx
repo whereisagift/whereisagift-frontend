@@ -40,7 +40,7 @@ export const Mobile = () => {
       </div>
 
       {isMenuOpen && <Folders />}
-      <DesireCards display="Mobile" />
+      <DesireCards />
     </div>
   );
 };
