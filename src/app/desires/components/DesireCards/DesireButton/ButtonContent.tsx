@@ -1,25 +1,28 @@
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import React from "react";
+import { ShoppingCartIcon, UserIcon } from "lucide-react";
+import { FC } from "react";
 
-import { type Desire } from "../../DesireCards";
+import { Desire } from "../../DesireCards";
 
 type ButtonContentProps = {
   desire?: Desire;
 };
-export const ButtonContent: React.FC<ButtonContentProps> = ({ desire }) => {
+
+export const ButtonContent: FC<ButtonContentProps> = ({ desire }) => {
   if (desire?.booking) {
     return (
-      <>
-        <UserOutlined /> {desire.booking.reservist.nickname}
-      </>
+      <div className="flex items-center gap-2">
+        <UserIcon className="w-4 h-4" />
+        {desire.booking.reservist.nickname}
+      </div>
     );
   }
   if (desire?.orderDate) {
     return (
-      <>
-        <ShoppingCartOutlined /> {dayjs(desire.orderDate).format("DD.MM")}
-      </>
+      <div className="flex items-center gap-2">
+        <ShoppingCartIcon className="w-4 h-4" />
+        {dayjs(desire.orderDate).format("DD.MM")}
+      </div>
     );
   }
   return <>Забронировать</>;

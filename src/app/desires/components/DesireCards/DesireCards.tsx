@@ -1,18 +1,8 @@
-import { Flex } from "antd";
+import { cn } from "@/utils";
 
 import * as mock from "mock.json";
 
 import { DesireCard } from "./DesireCard";
-import s from "./index.module.css";
-
-type DesireCardsProps = {
-  display: "Mobile" | "Desktop";
-};
-
-enum GapMode {
-  Mobile = "small",
-  Desktop = "large",
-}
 
 export type Desire = {
   name: string;
@@ -31,19 +21,19 @@ export type Booking = {
   date: string;
 };
 
-export const DesireCards: React.FC<DesireCardsProps> = ({ display }) => {
+export const DesireCards = () => {
   const desires: Desire[] = mock.desires;
+
   return (
-    <Flex
-      justify="space-around"
-      autoCapitalize="words"
-      gap={GapMode[display]}
-      wrap
-      className={s.cardsContainer}
+    <div
+      className={cn(
+        "p-4 md:pt-0 px-4 w-full grid gap-4 sm:gap-6 md:gap-8",
+        "grid-cols-[repeat(auto-fill,minmax(170px,1fr))]",
+      )}
     >
       {desires.map((desire, index) => (
         <DesireCard key={`${desire.url}${index}`} desire={desire} likeable />
       ))}
-    </Flex>
+    </div>
   );
 };

@@ -1,14 +1,16 @@
-import { HeartOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Heart } from "lucide-react";
+import { FC } from "react";
+
+import { Button } from "@/ui";
 
 import s from "./index.module.css";
 
 type LikeProps = unknown;
 
-export const Like: React.FC<LikeProps> = () => {
+export const Like: FC<LikeProps> = () => {
   return (
-    <Button shape="circle" type="link" className={s.heart_icon_button}>
-      <HeartOutlined className={s.heart_icon} />
+    <Button variant="link" className={s.heart_icon_button}>
+      <Heart className={s.heart_icon} />
     </Button>
   );
 };

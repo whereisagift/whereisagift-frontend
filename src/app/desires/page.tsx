@@ -1,16 +1,15 @@
-import { Flex } from "antd";
-
 import { ButtonToUp } from "@/components/ButtonToUp";
 
 import { Desktop, Mobile } from "./components";
 
 const Desires = () => {
   return (
-    <Flex>
+    <div className="flex flex-col">
       <Mobile />
       <Desktop />
       <ButtonToUp />
-    </Flex>
+    </div>
   );
 };
+
 export default Desires;

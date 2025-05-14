@@ -2,11 +2,11 @@
 
 import { HttpLink } from "@apollo/client";
 import {
-  ApolloNextAppProvider,
   ApolloClient,
+  ApolloNextAppProvider,
   InMemoryCache,
 } from "@apollo/client-integration-nextjs";
-import { PropsWithChildren } from "react";
+import { type FC, type PropsWithChildren } from "react";
 
 function makeClient() {
   const httpLink = new HttpLink({
@@ -20,10 +20,8 @@ function makeClient() {
   });
 }
 
-export function ApolloWrapper({ children }: PropsWithChildren) {
-  return (
-    <ApolloNextAppProvider makeClient={makeClient}>
-      {children}
-    </ApolloNextAppProvider>
-  );
-}
+export const ApolloProvider: FC<PropsWithChildren> = ({ children }) => (
+  <ApolloNextAppProvider makeClient={makeClient}>
+    {children}
+  </ApolloNextAppProvider>
+);

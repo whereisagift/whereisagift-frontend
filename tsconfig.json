@@ -26,20 +26,38 @@
       "@/components/*": [
         "./components/*"
       ],
+      "@/utils/*": [
+        "./utils/*"
+      ],
+      "@/utils": [
+        "./utils"
+      ],
       "@/ui": [
         "./components/ui"
       ],
       "@/ui/*": [
         "./components/ui/*"
       ],
+      "@/lib": [
+        "./lib"
+      ],
+      "@/lib/*": [
+        "./lib/*"
+      ],
+      "@/hooks": [
+        "./hooks"
+      ],
+      "@/hooks/*": [
+        "./hooks/*"
+      ],
+      "@/providers": [
+        "./providers"
+      ],
+      "@/providers/*": [
+        "./providers/*"
+      ],
       "@/pages/*": [
         "./pages/*"
-      ],
-      "@/utils": [
-        "./utils"
-      ],
-      "@/utils/*": [
-        "./utils/*"
       ]
     },
     "target": "ES2017"

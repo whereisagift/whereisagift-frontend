@@ -1,11 +1,13 @@
-import { ArrowUpOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { ArrowUp } from "lucide-react";
+
+import { Button } from "@/ui";
 
 import s from "./index.module.css";
 
-
 export const ButtonToUp = () => {
   return (
-    <Button className={s.button_to_up} icon={<ArrowUpOutlined size={150} />} />
+    <Button className={s.button_to_up}>
+      <ArrowUp className={s.heart_icon} />
+    </Button>
   );
 };
