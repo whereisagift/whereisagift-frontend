@@ -1,25 +1,31 @@
-import { type MenuProps } from "antd";
-import Link from "next/link";
+"use client";
+
 import { usePathname } from "next/navigation";
 
 export type MainMenuRouterType = () => {
   pathname: string;
-  items: ItemsType;
+  items: {
+    key: string;
+    label: string;
+    href: string;
+  }[];
 };
-export type ItemsType = Required<MenuProps>["items"][number][];
 
-const itemsMainMenu: ItemsType = [
+const itemsMainMenu = [
   {
     key: "/",
-    label: <Link href="/">Главная</Link>,
+    label: "Главная",
+    href: "/",
   },
   {
     key: "/desires",
-    label: <a href="/desires">Мои Желания</a>,
+    label: "Мои Желания",
+    href: "/desires",
   },
   {
     key: "/friends",
-    label: <a href="/friends">Друзья</a>,
+    label: "Друзья",
+    href: "/friends",
   },
 ];
 

@@ -1,18 +1,18 @@
 "use client";
 
 import {
-  DoubleLeftOutlined,
-  DoubleRightOutlined,
-  FolderAddOutlined,
-  GiftOutlined,
-} from "@ant-design/icons";
-import { Button, Flex } from "antd";
+  FolderPlusIcon,
+  GiftIcon,
+  MoveLeftIcon,
+  MoveRightIcon,
+} from "lucide-react";
 import { useState } from "react";
+
+import { Button } from "@/ui";
+import { cn } from "@/utils";
 
 import { DesireCards } from "../../DesireCards";
 import { Folders } from "../../Folders";
-
-import s from "./index.module.css";
 
 export const Desktop = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -22,26 +22,37 @@ export const Desktop = () => {
   };
 
   return (
-    <Flex className={s.container}>
-      <Flex vertical gap={20} className={s.containerLeftNav}>
-        <Button type="primary" onClick={toggleCollapsed}>
+    <div
+      className={cn(
+        "overflow-visible mt-[4vw]",
+        "hidden md:flex", // скрываем на мобильных
+      )}
+    >
+      <div className="sticky top-[calc(4vw+var(--main-header-size))] max-w-[250px] ml-[2vw] flex flex-col gap-2">
+        <Button variant="outline" onClick={toggleCollapsed}>
           {collapsed ? (
-            <DoubleRightOutlined />
+            <MoveRightIcon className="h-4 w-4" />
           ) : (
             <>
-              <DoubleLeftOutlined /> Скрыть панель
+              <MoveLeftIcon className="h-4 w-4 mr-2" />
+              Скрыть панель
             </>
           )}
         </Button>
-        <Button type="primary">
-          {collapsed ? <FolderAddOutlined /> : "Создать новую папку"}
+        <Button variant="outline">
+          {collapsed ? (
+            <FolderPlusIcon className="h-4 w-4" />
+          ) : (
+            "Создать новую папку"
+          )}
         </Button>
-        <Button type="primary">
-          {collapsed ? <GiftOutlined /> : "Добавить желание"}
+        <Button variant="outline">
+          {collapsed ? <GiftIcon className="h-4 w-4" /> : "Добавить желание"}
         </Button>
         <Folders collapsed={collapsed} />
-      </Flex>
+      </div>
+
       <DesireCards display="Desktop" />
-    </Flex>
+    </div>
   );
 };

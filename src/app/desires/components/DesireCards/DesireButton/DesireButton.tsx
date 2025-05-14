@@ -1,25 +1,25 @@
 "use client";
 
-import { Button } from "antd";
-import { useState } from "react";
+import { FC, useState } from "react";
 
-import { type Desire } from "../DesireCards";
+import { Button } from "@/components/ui/button";
+
+import { Desire } from "../DesireCards";
 
 import { ButtonContent } from "./ButtonContent";
-import s from "./index.module.css";
 
-type ButtonContentProps = {
+type DesireButtonProps = {
   desire: Desire;
 };
 
-export const DesireButton: React.FC<ButtonContentProps> = ({ desire }) => {
+export const DesireButton: FC<DesireButtonProps> = ({ desire }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Button
-      type="primary"
+      variant="default"
       disabled={Boolean(desire.booking)}
-      className={s.button}
+      className="w-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => console.log("jghg")}

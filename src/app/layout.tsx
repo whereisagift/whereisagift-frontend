@@ -23,7 +23,7 @@ export default function RootLayout({
       <head>
         <title>WhereIsAGift</title>
       </head>
-      <body>
+      <body className="bg-[url('../assets/paperFacture.png')]  bg-repeat bg-[length:600px_600px] bg-center animate-scrollBackground min-h-screen">
         <Providers>
           <Header />
           {children}

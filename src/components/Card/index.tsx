@@ -2,8 +2,6 @@ import { FC, ReactNode } from "react";
 
 import { Like } from "../Like";
 
-import s from "./index.module.css";
-
 type CardProps = {
   image: ReactNode;
   content: ReactNode;
@@ -20,14 +18,21 @@ export const Card: FC<CardProps> = ({
   children,
 }) => {
   return (
-    <div className={s.card}>
-      <div className={s.image_container}>
-        {likeable && <Like />}
-        <div className={s.image}>{image}</div>
+    <div className="flex flex-col justify-between bg-white rounded-lg overflow-hidden transition-shadow hover:shadow-md">
+      <div className="relative">
+        {likeable && (
+          <div className="absolute top-2 right-2 z-10">
+            <Like />
+          </div>
+        )}
+        <div className="w-full h-[150px] sm:h-[200px]">
+          {/* Сюда передаём image */}
+          {image}
+        </div>
       </div>
-      <div className={s.footer_container}>
+      <div className="flex flex-col justify-between gap-2 px-[1vw] pb-[1vw] h-full">
         {content}
-        {button}
+        {button && <div className="w-full">{button}</div>}
       </div>
       {children}
     </div>
