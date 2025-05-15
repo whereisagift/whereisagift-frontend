@@ -26,9 +26,10 @@ export const Desktop = () => {
       className={cn(
         "overflow-visible mt-[4vw]",
         "hidden md:flex", // скрываем на мобильных
+        "",
       )}
     >
-      <div className="sticky top-[calc(4vw+var(--main-header-size))] max-w-[250px] ml-[2vw] flex flex-col gap-2">
+      <div className="sticky h-full top-[calc(4vw+var(--main-header-size))] max-w-[250px] ml-[2vw] flex flex-col gap-2">
         <Button variant="outline" onClick={toggleCollapsed}>
           {collapsed ? (
             <MoveRightIcon className="h-4 w-4" />
