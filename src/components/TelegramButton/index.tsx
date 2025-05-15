@@ -2,8 +2,6 @@
 
 import { memo, useEffect, useRef } from "react";
 
-import s from "./index.module.css";
-
 export interface TelegramUser {
   id: string;
   first_name: string;
@@ -67,7 +65,12 @@ export const TelegramButton = memo(
       };
     }, [telegramLogin, size, radius, showAvatar]);
 
-    return <div ref={containerRef} className={s.container} />;
+    return (
+      <div
+        ref={containerRef}
+        className="absolute top-1/2 right-0 -translate-y-1/2 mr-[2vw]"
+      />
+    );
   },
 );
 
