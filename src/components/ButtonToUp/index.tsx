@@ -48,25 +48,23 @@ export const ButtonToUp: FC = () => {
       onClick={scrollToTop}
       className={cn(
         `
-        fixed left-[2vw] bottom-[4vw]
+        fixed 
+        left-[2vw] 
+        bottom-[4vw] 
         w-[calc(var(--main-header-size)+1vw)] h-[calc(var(--main-header-size)+1vw)]
-        rounded-full shadow-md
-        flex items-center justify-center
-        transition-all duration-500 ease-in-out
         md:min-w-[calc(var(--main-header-size)+1vw)]
         md:min-h-[calc(var(--main-header-size)+1vw)]
         max-md:min-w-[calc(var(--main-header-size)+2vw)]
         max-md:min-h-[calc(var(--main-header-size)+2vw)]
         max-md:bottom-[calc(4vw+var(--secondary-header-size))]
-        z-50
         p-0`,
         isVisible
           ? "opacity-100 scale-100"
           : "opacity-0 scale-90 pointer-events-none",
       )}
-      variant="outline"
+      variant="icon"
     >
-      <ArrowUp className="w-1/2 h-1/2 text-black  " />
+      <ArrowUp className="w-1/2 h-1/2 text-black" />
     </Button>
   );
 };

@@ -19,6 +19,14 @@ export const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-[#FFE13F] hover:text-black",
         ghost: "hover:bg-[#FFE13F] hover:text-black",
         link: "text-primary underline-offset-4 hover:decoration-[#FFE13F] hover:underline ",
+        icon: `
+        border border-input bg-background hover:bg-[#FFE13F] hover:text-black
+        rounded-full shadow-md
+        flex items-center justify-center
+        transition-all duration-500 ease-in-out
+
+        z-50
+        `,
       },
       size: {
         default: "h-10 px-4 py-2",
