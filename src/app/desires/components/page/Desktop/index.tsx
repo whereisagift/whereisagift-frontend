@@ -26,7 +26,6 @@ export const Desktop = () => {
       className={cn(
         "overflow-visible mt-[4vw]",
         "hidden md:flex", // скрываем на мобильных
-        "",
       )}
     >
       <div className="sticky h-full top-[calc(4vw+var(--main-header-size))] max-w-[250px] ml-[2vw] flex flex-col gap-2">
