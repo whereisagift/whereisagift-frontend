@@ -3,11 +3,29 @@
 import { Menu } from "@/components/Menu";
 import { TelegramButton, type TelegramUser } from "@/components/TelegramButton";
 
+import { useLoginMutation } from "./api";
+
 const TELEGRAM_BOT = process.env.NEXT_PUBLIC_TELEGRAM_BOT ?? "";
 
 export const Header = () => {
+  const [login, res] = useLoginMutation();
+  console.log(res);
   const handlerLogin = (user: TelegramUser) => {
-    console.log(JSON.parse(JSON.stringify(user)));
+    const { id, username, hash, first_name, last_name, photo_url, auth_date } =
+      JSON.parse(JSON.stringify(user)) as TelegramUser;
+    login({
+      variables: {
+        input: {
+          hash,
+          authDate: auth_date,
+          photoUrl: photo_url,
+          username,
+          telegramId: id,
+          lastName: last_name,
+          firstName: first_name,
+        },
+      },
+    });
   };
 
   return (

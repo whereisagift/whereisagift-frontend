@@ -1,4 +1,3 @@
-/* eslint-disable */
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -15,16 +14,21 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
-  createUser?: Maybe<User>;
-  createWish?: Maybe<Wish>;
-  createWishlist?: Maybe<Wishlist>;
+export type AuthPayload = {
+  authDate: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  hash: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  photoUrl: Scalars['String']['input'];
+  telegramId: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
-
-export type MutationCreateUserArgs = {
-  name: Scalars['String']['input'];
+export type Mutation = {
+  __typename?: 'Mutation';
+  createWish?: Maybe<Wish>;
+  createWishlist?: Maybe<Wishlist>;
+  login?: Maybe<User>;
 };
 
 
@@ -35,6 +39,11 @@ export type MutationCreateWishArgs = {
 
 export type MutationCreateWishlistArgs = {
   name: Scalars['String']['input'];
+};
+
+
+export type MutationLoginArgs = {
+  authPayload: AuthPayload;
 };
 
 export type Query = {
@@ -52,8 +61,12 @@ export type QueryUserArgs = {
 
 export type User = {
   __typename?: 'User';
+  firstName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
+  lastName: Scalars['String']['output'];
+  photoUrl: Scalars['String']['output'];
+  telegramId: Scalars['String']['output'];
+  username: Scalars['String']['output'];
   wishes?: Maybe<Array<Maybe<Wish>>>;
   wishlists?: Maybe<Array<Maybe<Wishlist>>>;
 };
@@ -63,7 +76,7 @@ export type Wish = {
   creator: User;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  wishlist?: Maybe<Wishlist>;
+  wishlists?: Maybe<Array<Maybe<Wishlist>>>;
 };
 
 export type Wishlist = {
