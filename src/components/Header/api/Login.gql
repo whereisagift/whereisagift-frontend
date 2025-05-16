@@ -1,0 +1,8 @@
+mutation Login($input: AuthPayload!) {
+	login(authPayload: $input) {
+		id
+		username
+		lastName
+		photoUrl
+	}
+}
