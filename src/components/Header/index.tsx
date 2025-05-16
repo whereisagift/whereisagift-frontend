@@ -11,19 +11,9 @@ export const Header = () => {
   const [login, res] = useLoginMutation();
   console.log(res);
   const handlerLogin = (user: TelegramUser) => {
-    const { id, username, hash, first_name, last_name, photo_url, auth_date } =
-      JSON.parse(JSON.stringify(user)) as TelegramUser;
     login({
       variables: {
-        input: {
-          hash,
-          authDate: auth_date,
-          photoUrl: photo_url,
-          username,
-          telegramId: id,
-          lastName: last_name,
-          firstName: first_name,
-        },
+        input: user,
       },
     });
   };

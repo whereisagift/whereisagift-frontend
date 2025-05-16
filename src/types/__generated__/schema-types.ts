@@ -15,12 +15,12 @@ export type Scalars = {
 };
 
 export type AuthPayload = {
-  authDate: Scalars['String']['input'];
-  firstName: Scalars['String']['input'];
+  auth_date: Scalars['Int']['input'];
+  first_name: Scalars['String']['input'];
   hash: Scalars['String']['input'];
-  lastName: Scalars['String']['input'];
-  photoUrl: Scalars['String']['input'];
-  telegramId: Scalars['String']['input'];
+  id: Scalars['Int']['input'];
+  last_name: Scalars['String']['input'];
+  photo_url: Scalars['String']['input'];
   username: Scalars['String']['input'];
 };
 
@@ -50,8 +50,8 @@ export type Query = {
   __typename?: 'Query';
   user?: Maybe<User>;
   users: Array<User>;
-  wishes?: Maybe<Array<Maybe<Wish>>>;
-  wishlists?: Maybe<Array<Maybe<Wishlist>>>;
+  wishes?: Maybe<Array<Wish>>;
+  wishlists?: Maybe<Array<Wishlist>>;
 };
 
 
@@ -76,7 +76,7 @@ export type Wish = {
   creator: User;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  wishlists?: Maybe<Array<Maybe<Wishlist>>>;
+  wishlists?: Maybe<Array<Wishlist>>;
 };
 
 export type Wishlist = {
@@ -84,5 +84,5 @@ export type Wishlist = {
   creator: User;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  wishes?: Maybe<Array<Maybe<Wish>>>;
+  wishes?: Maybe<Array<Wish>>;
 };
