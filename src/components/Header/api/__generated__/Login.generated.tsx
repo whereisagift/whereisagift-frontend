@@ -1,27 +1,24 @@
+import * as Types from '@/types';
 
 import { gql } from '@apollo/client';
+import { CurrentUserFragmentDoc } from './CurrentUser.generated';
 import * as Apollo from '@apollo/client';
-
-import * as Types from '@/types';
 const defaultOptions = {} as const;
 export type LoginMutationVariables = Types.Exact<{
   input: Types.AuthPayload;
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'User', id: string, username: string, lastName: string, photoUrl: string } | null };
+export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'User', id: string, photoUrl: string, lastName: string, firstName: string } | null };
 
 
 export const LoginDocument = gql`
     mutation Login($input: AuthPayload!) {
   login(authPayload: $input) {
-    id
-    username
-    lastName
-    photoUrl
+    ...CurrentUser
   }
 }
-    `;
+    ${CurrentUserFragmentDoc}`;
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**

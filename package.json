@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "sudo hostile set 127.0.0.1 local.whereisagift.com",
     "dev": "next dev --turbopack -p 80",
+    "postdev": "sudo hostile remove local.whereisagift.com",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
