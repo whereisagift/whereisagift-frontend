@@ -9,6 +9,8 @@ const TELEGRAM_BOT = process.env.NEXT_PUBLIC_TELEGRAM_BOT ?? "";
 
 export const Header = () => {
   const [login, { data, loading }] = useCurrentUser();
+
+  console.log(data, loading);
   return (
     <header
       className="grid md:grid-cols-[0.5fr_3fr_0.5fr] sticky top-0 z-40 w-full bg-white"
