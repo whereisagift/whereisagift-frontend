@@ -1,16 +1,8 @@
-"use client"; // если ты используешь App Router
+"use client";
 
 import { memo, useEffect, useRef } from "react";
 
-export interface TelegramUser {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  photo_url: string;
-  auth_date: number;
-  hash: string;
-}
+import type { TelegramUser } from "@/types";
 
 interface Props {
   telegramLogin: string;

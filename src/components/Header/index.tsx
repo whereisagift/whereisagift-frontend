@@ -1,23 +1,14 @@
 "use client";
 
 import { Menu } from "@/components/Menu";
-import { TelegramButton, type TelegramUser } from "@/components/TelegramButton";
+import { TelegramButton } from "@/components/TelegramButton";
 
-import { useLoginMutation } from "./api";
+import { useCurrentUser } from "./hooks";
 
 const TELEGRAM_BOT = process.env.NEXT_PUBLIC_TELEGRAM_BOT ?? "";
 
 export const Header = () => {
-  const [login, res] = useLoginMutation();
-  console.log(res);
-  const handlerLogin = (user: TelegramUser) => {
-    login({
-      variables: {
-        input: user,
-      },
-    });
-  };
-
+  const [login, { data, loading }] = useCurrentUser();
   return (
     <header
       className="grid md:grid-cols-[0.5fr_3fr_0.5fr] sticky top-0 z-40 w-full bg-white"
@@ -27,7 +18,7 @@ export const Header = () => {
       <TelegramButton
         telegramLogin={TELEGRAM_BOT}
         size="medium"
-        onLogin={handlerLogin}
+        onLogin={login}
       />
     </header>
   );

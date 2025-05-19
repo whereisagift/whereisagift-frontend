@@ -15,25 +15,17 @@ const config: CodegenConfig = {
     "src/": {
       preset: "near-operation-file",
       presetConfig: {
-        extension: ".generated.tsx", // .tsx нужно для React‑хуков
-        folder: "__generated__", // результирующая папка рядом с .gql
+        extension: ".generated.tsx",
+        folder: "__generated__",
         baseTypesPath: "~@/types",
       },
-      plugins: [
-        "typescript-operations", // генерит типы переменных/ответов
-        "typescript-react-apollo", // генерит хуки и HOC
-      ],
+      plugins: ["typescript-operations", "typescript-react-apollo"],
       config: {
-        withHooks: true, // включаем хуки
-        withHOC: false, // без HOC
-        withComponent: false, // без компонентов
+        withHooks: true,
+        withHOC: false,
+        withComponent: false,
       },
     },
-  },
-
-  // ← сюда добавляем хук на Prettier
-  hooks: {
-    afterOneFileWrite: ["eslint --fix"],
   },
   ignoreNoDocuments: true,
 };
