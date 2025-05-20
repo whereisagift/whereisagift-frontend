@@ -2,7 +2,7 @@ import { cn } from "@/utils";
 
 import * as mock from "mock.json";
 
-import { DesireCard } from "./DesireCard";
+import { DesireCard } from "../DesireCard";
 
 export type Desire = {
   name: string;

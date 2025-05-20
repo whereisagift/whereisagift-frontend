@@ -1,4 +1,3 @@
-export { Header } from "./Header";
 export { TelegramButton } from "./TelegramButton";
 export { Menu } from "./Menu";
 export { ButtonToUp } from "./ButtonToUp";
