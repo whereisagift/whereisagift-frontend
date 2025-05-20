@@ -6,7 +6,7 @@ import { cn } from "@/utils";
 import desireDefaultImg from "assets/desireDefaultImg.png";
 
 import { DesireButton } from "../DesireButton";
-import { Desire } from "../DesireCards";
+import { type Desire } from "../DesireCards";
 
 type DesireCardProps = {
   desire: Desire;

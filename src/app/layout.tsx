@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 
-import { Header } from "@/components/Header";
+import { Header } from "@/features/layout";
 import { Providers } from "@/providers";
 
 import { poiret } from "../fonts";

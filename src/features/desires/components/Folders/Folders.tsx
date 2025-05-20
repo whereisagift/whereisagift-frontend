@@ -18,7 +18,7 @@ export const Folders: FC<FoldersProps> = ({ collapsed }) => {
     <div
       className={cn(
         "rounded-lg",
-        collapsed ? "w-0 overflow-hidden" : "w-full",
+        collapsed ? "w-full" : "w-0 overflow-hidden",
         "transition-all duration-300",
         "flex flex-col gap-2",
         "p-2",
