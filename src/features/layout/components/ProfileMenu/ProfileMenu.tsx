@@ -31,32 +31,33 @@ export const ProfileMenu = () => {
   };
 
   console.log(data, loading);
+
+  if (loading) return null;
+
+  if (!data) {
+    return (
+      <TelegramButton
+        telegramLogin={TELEGRAM_BOT}
+        size="medium"
+        onLogin={login}
+      />
+    );
+  }
   return (
-    <>
-      {!data && !loading && (
-        <TelegramButton
-          telegramLogin={TELEGRAM_BOT}
-          size="medium"
-          onLogin={login}
-        />
-      )}
-      {data && !loading && (
-        <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="link"
-              onClick={handleClickFoldersButton}
-              className="self-center justify-self-end pr-0 mr-[2vw]"
-            >
-              {`${data?.me.firstName} ${data?.me.lastName}`}
-              <Avatar src={data.me.photoUrl} />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-fit p-0" align="end">
-            <Menu items={items} itemClick={handleClickFolderItem} />
-          </PopoverContent>
-        </Popover>
-      )}
-    </>
+    <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="link"
+          onClick={handleClickFoldersButton}
+          className="self-center justify-self-end pr-0 mr-[2vw]"
+        >
+          {`${data?.me.firstName} ${data?.me.lastName}`}
+          <Avatar src={data.me.photoUrl} />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-fit p-0" align="end">
+        <Menu items={items} itemClick={handleClickFolderItem} />
+      </PopoverContent>
+    </Popover>
   );
 };
