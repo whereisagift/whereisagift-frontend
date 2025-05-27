@@ -11,16 +11,31 @@ import {
 import { useState } from "react";
 
 import { ButtonToUp } from "@/components/ButtonToUp";
-import { DesireCards, Folders } from "@/features/desires";
-import { Button } from "@/ui";
+import { type Item, type Items } from "@/components/types";
+import { DesireCards } from "@/features/desires";
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@/ui";
 import { cn } from "@/utils";
+
+import { Menu } from "components/Menu";
+
+const items: Items = [
+  { key: "5352552", label: "Все" },
+  { key: "53525452", label: "ДР" },
+  { key: "3535644", label: "Свадьба" },
+  { key: "654777", label: "Мои Идеи" },
+];
 
 const Desires = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<Item>(items[0]);
 
   const toggleCollapsed = () => setCollapsed((prev) => !prev);
   const handleClickFoldersButton = () => setIsMenuOpen((prev) => !prev);
+  const handleClickFolderItem = (item: Item) => {
+    setSelectedItem(item);
+    setIsMenuOpen(false);
+  };
 
   return (
     <div className="flex flex-col">
@@ -47,7 +62,13 @@ const Desires = () => {
           <Button variant="outline">
             {collapsed ? <GiftIcon className="h-4 w-4" /> : "Добавить желание"}
           </Button>
-          <Folders collapsed={collapsed} />
+          <Menu
+            collapsed={collapsed}
+            items={items}
+            className="md:static  p-4"
+            itemClick={handleClickFolderItem}
+            selectedItem={selectedItem}
+          />
         </div>
         <DesireCards />
       </div>
@@ -60,17 +81,27 @@ const Desires = () => {
             <span className="sr-only">Добавить желание</span>
           </Button>
 
-          <Button
-            variant="default"
-            onClick={handleClickFoldersButton}
-            className="flex items-center gap-2"
-          >
-            <FolderIcon className="w-5 h-5" />
-            Мои папки
-          </Button>
+          <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="default"
+                onClick={handleClickFoldersButton}
+                className="flex items-center gap-2"
+              >
+                <FolderIcon className="w-5 h-5" />
+                Мои папки
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-fit p-0" align="end">
+              <Menu
+                items={items}
+                itemClick={handleClickFolderItem}
+                selectedItem={selectedItem}
+              />
+            </PopoverContent>
+          </Popover>
         </div>
 
-        {isMenuOpen && <Folders />}
         <DesireCards />
       </div>
       <ButtonToUp />

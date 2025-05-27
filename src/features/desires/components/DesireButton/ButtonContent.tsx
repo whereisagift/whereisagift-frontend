@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { ShoppingCartIcon, UserIcon } from "lucide-react";
 import { FC } from "react";
 
-import { Desire } from "../../DesireCards";
+import { Desire } from "../DesireCards";
 
 type ButtonContentProps = {
   desire?: Desire;
