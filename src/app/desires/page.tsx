@@ -12,7 +12,11 @@ import { useState } from "react";
 
 import { ButtonToUp } from "@/components/ButtonToUp";
 import { type Item, type Items } from "@/components/types";
-import { AddDesireModal, DesireCards } from "@/features/desires";
+import {
+  AddDesireModal,
+  AddFolderModal,
+  DesireCards,
+} from "@/features/desires";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@/ui";
 import { cn } from "@/utils";
 
@@ -52,16 +56,18 @@ const Desires = () => {
               </>
             )}
           </Button>
-          <Button variant="outline">
-            {collapsed ? (
-              <>
-                <PlusIcon className="w-4 h-4" />{" "}
-                <FolderPlusIcon className="h-4 w-4" />
-              </>
-            ) : (
-              "Создать новую папку"
-            )}
-          </Button>
+          <AddFolderModal>
+            <Button variant="outline">
+              {collapsed ? (
+                <>
+                  <PlusIcon className="w-4 h-4" />{" "}
+                  <FolderPlusIcon className="h-4 w-4" />
+                </>
+              ) : (
+                "Создать новую папку"
+              )}
+            </Button>
+          </AddFolderModal>
 
           <AddDesireModal>
             <Button variant="outline" className="w-full">
