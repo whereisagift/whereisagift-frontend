@@ -41,8 +41,6 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
     },
   });
 
-  console.log(`errors: ${form.formState.errors}`);
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }

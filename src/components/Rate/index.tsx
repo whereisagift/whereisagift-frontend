@@ -21,7 +21,7 @@ export const Rate: React.FC<RateProps> = ({
   max = 5,
   readOnly = false,
   onChange,
-  className = "",
+  className,
 }) => {
   const [hoverValue, setHoverValue] = useState(0);
   const [selectedValue, setSelectedValue] = useState(value);
