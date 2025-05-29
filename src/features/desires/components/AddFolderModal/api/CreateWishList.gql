@@ -1,0 +1,6 @@
+mutation CreateWishList($name: String!) {
+	createWishlist(name: $name) {
+		id
+		name
+	}
+}

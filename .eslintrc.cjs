@@ -1,18 +1,54 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    "eslint:recommended",
+    "next/typescript",
+    "plugin:react-hooks/recommended",
+    "next/core-web-vitals",
+    "prettier",
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+    "@next/next/no-img-element": "off",
+    "import/order": [
+      2,
+      {
+        groups: [
+          "external",
+          "builtin",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+        ],
+        pathGroups: [
+          {
+            pattern: "@/**",
+            group: "internal",
+            position: "before",
+          },
+          {
+            pattern: "assets/**",
+            group: "internal",
+            position: "after",
+          },
+          {
+            pattern: "**/*.module.css",
+            group: "index",
+            position: "after",
+          },
+          {
+            pattern: "**/*.css",
+            group: "index",
+            position: "after",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["builtin"],
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+        "newlines-between": "always",
+      },
     ],
   },
-}
+};
