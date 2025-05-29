@@ -24,11 +24,18 @@ export type AuthPayload = {
   username: Scalars['String']['input'];
 };
 
+export type Booking = {
+  __typename?: 'Booking';
+  date: Scalars['String']['output'];
+  nickname: Scalars['String']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createWish?: Maybe<Wish>;
   createWishlist?: Maybe<Wishlist>;
   login?: Maybe<User>;
+  logout: Scalars['Boolean']['output'];
 };
 
 
@@ -74,10 +81,15 @@ export type User = {
 
 export type Wish = {
   __typename?: 'Wish';
+  booking?: Maybe<Booking>;
   creator: User;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  wishlists?: Maybe<Array<Wishlist>>;
+  orderDate?: Maybe<Scalars['String']['output']>;
+  pictureUrl?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  wishlists?: Maybe<Array<Maybe<Wishlist>>>;
 };
 
 export type Wishlist = {
