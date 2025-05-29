@@ -3,7 +3,6 @@ import { FC, ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { useCreateWishListMutation } from "@/features/desires/components/AddFolderModal/api";
 import { Button } from "@/ui";
 import {
   Dialog,
@@ -15,6 +14,8 @@ import {
 } from "@/ui/dialog";
 import { Form, FormControl, FormField, FormItem } from "@/ui/form";
 import { Input } from "@/ui/input";
+
+import { useCreateWishListMutation } from "./api";
 
 type AddFolderModalProps = {
   children: ReactNode;
