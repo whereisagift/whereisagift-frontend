@@ -34,8 +34,6 @@ export const ProfileMenu = () => {
     }
   };
 
-  console.log("login", data, loading);
-
   if (loading)
     return (
       <div className="flex items-center self-center justify-self-end pr-0 mr-[2vw]">
