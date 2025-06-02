@@ -1,0 +1,6 @@
+fragment CurrentUser on User {
+	id
+	photoUrl
+	lastName
+	firstName
+}
