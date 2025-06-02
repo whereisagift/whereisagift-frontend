@@ -1,10 +1,13 @@
+import { useApolloClient } from "@apollo/client";
 import { useCallback } from "react";
 
 import type { TelegramUser } from "@/types";
 
-import { useLoginMutation, useMeQuery } from "../api";
+import { useLoginMutation, useLogoutMutation, useMeQuery } from "../api";
 
 export const useCurrentUser = () => {
+  const client = useApolloClient();
+
   const [login, { loading: loadingLogin }] = useLoginMutation({
     updateQueries: {
       me: (prev, { mutationResult }) => {
@@ -13,6 +16,13 @@ export const useCurrentUser = () => {
         }
         return { data: mutationResult.data };
       },
+    },
+  });
+  const [logout, { loading: loadingLogout }] = useLogoutMutation({
+    onCompleted: () => {
+      client.resetStore().catch((e) => {
+        console.error("Ошибка при сбросе кеша:", e);
+      });
     },
   });
   const { data, loading: loadingMe } = useMeQuery();
@@ -30,9 +40,10 @@ export const useCurrentUser = () => {
 
   return [
     handlerLogin,
+    logout,
     {
       data,
-      loading: loadingMe || loadingLogin,
+      loading: loadingMe || loadingLogin || loadingLogout,
     },
   ] as const;
 };
