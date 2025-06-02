@@ -7,18 +7,19 @@ import { TelegramButton } from "@/components/TelegramButton";
 import type { Item, Items } from "@/components/types";
 import { Avatar } from "@/features/layout/components/Avatar";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@/ui";
+import { Skeleton } from "@/ui/skeleton";
 
 import { useCurrentUser } from "./hooks";
 
 const TELEGRAM_BOT = process.env.NEXT_PUBLIC_TELEGRAM_BOT ?? "";
 
 const items: Items = [
-  { key: "3535644", label: "Настройки" },
-  { key: "654777", label: "Выйти" },
+  { key: "settings", label: "Настройки" },
+  { key: "logout", label: "Выйти" },
 ];
 
 export const ProfileMenu = () => {
-  const [login, { data, loading }] = useCurrentUser();
+  const [login, logout, { data, loading }] = useCurrentUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Item>(items[0]);
 
@@ -28,11 +29,20 @@ export const ProfileMenu = () => {
   const handleClickFolderItem = (item: Item) => {
     setSelectedItem(item);
     setIsMenuOpen(false);
+    if (item.key === "logout") {
+      void logout();
+    }
   };
 
-  console.log(data, loading);
+  console.log("login", data, loading);
 
-  if (loading) return null;
+  if (loading)
+    return (
+      <div className="flex items-center self-center justify-self-end pr-0 mr-[2vw]">
+        <Skeleton className="h-4 w-[110px] md:w-[130px] mr-2" />
+        <Skeleton className="h-6 w-6 rounded-full" />
+      </div>
+    );
 
   if (!data) {
     return (
