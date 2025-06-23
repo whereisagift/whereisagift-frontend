@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 
 import { cn } from "@/utils";
 

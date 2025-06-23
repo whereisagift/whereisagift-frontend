@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { type FC } from "react";
 
 import { type Item, type Items } from "@/components/types";
 import { Button } from "@/ui";

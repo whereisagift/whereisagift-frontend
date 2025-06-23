@@ -1,6 +1,12 @@
 // Selector can extract any value
 
-import { ComponentType, Context, FC, JSX, PropsWithChildren } from "react";
+import {
+  type ComponentType,
+  type Context,
+  type FC,
+  type JSX,
+  type PropsWithChildren,
+} from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Selector<Value> = (value: Value) => any;
@@ -17,12 +23,14 @@ export type Hooks<
   Selectors extends Selector<Value>[],
 > = Selectors["length"] extends 0 ? [() => Value] : SelectorHooks<Selectors>;
 
+export type InferComponentType<P> = keyof P extends never
+  ? () => JSX.Element
+  : ComponentType<P>;
+
 export type ContextHOCTuple<Value, Selectors extends Selector<Value>[]> = [
   // Component can have any props
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  <P extends Record<string, any>>(
-    Component: ComponentType<PropsWithChildren<P>>,
-  ) => (props: P) => JSX.Element,
+
+  <P>(Component: ComponentType<P>) => InferComponentType<P>,
   ...Hooks<Value, Selectors>,
 ];
 

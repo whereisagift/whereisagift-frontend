@@ -1,10 +1,10 @@
 "use client";
 
-import { FC, useState } from "react";
+import { type FC, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
-import { Desire } from "../DesireCards";
+import { type Desire } from "../DesireCards";
 
 import { ButtonContent } from "./ButtonContent";
 
