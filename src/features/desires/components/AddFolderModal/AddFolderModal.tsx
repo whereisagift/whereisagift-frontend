@@ -4,18 +4,21 @@ import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/ui";
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/ui/dialog";
-import { Form, FormControl, FormField, FormItem } from "@/ui/form";
-import { Input } from "@/ui/input";
-import { Textarea } from "@/ui/textarea";
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  Input,
+  Textarea,
+} from "@/ui";
 
 import { useCreateWishListMutation } from "./api";
 

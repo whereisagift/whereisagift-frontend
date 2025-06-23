@@ -4,13 +4,16 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import {
-  useCurrentFolderContext,
-  useEditModeContext,
-} from "@/features/desires";
-import { Button } from "@/ui";
-import { Form, FormControl, FormField, FormItem } from "@/ui/form";
-import { Input } from "@/ui/input";
-import { Textarea } from "@/ui/textarea";
+  Button,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  Input,
+  Textarea,
+} from "@/ui";
+
+import { useCurrentFolderContext, useEditModeContext } from "../../contexts";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),

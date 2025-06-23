@@ -3,3 +3,7 @@ export * from "./checkbox";
 export * from "./popover";
 export * from "./typography";
 export * from "./tooltip";
+export * from "./input";
+export * from "./textarea";
+export * from "./form";
+export * from "./dialog";

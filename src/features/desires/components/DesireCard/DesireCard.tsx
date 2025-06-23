@@ -1,13 +1,13 @@
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { FC } from "react";
 
-import { Card } from "@/components/Card";
-import { useEditModeContext } from "@/features/desires";
+import { Card } from "@/components";
 import { Checkbox } from "@/ui";
 import { cn } from "@/utils";
 
 import desireDefaultImg from "assets/desireDefaultImg.png";
 
+import { useEditModeContext } from "../../contexts";
 import { DesireButton } from "../DesireButton";
 import { type Desire } from "../DesireCards";
 

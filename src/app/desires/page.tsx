@@ -8,11 +8,11 @@ import {
   AddDesireModal,
   AddFolderModal,
   DesireCards,
+  DesiresTitle,
   FoldersMenu,
   withCurrentFolder,
   withEditMode,
 } from "@/features/desires";
-import { DesiresTitle } from "@/features/desires/components";
 import { Button } from "@/ui";
 import { cn } from "@/utils";
 

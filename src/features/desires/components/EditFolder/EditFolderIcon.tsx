@@ -1,8 +1,9 @@
 import { Check, Pencil } from "lucide-react";
 import { FC } from "react";
 
-import { useEditModeContext } from "@/features/desires";
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from "@/ui";
+
+import { useEditModeContext } from "../../contexts";
 
 export const EditFolderIcon: FC = () => {
   const { isEditMode, setIsEditMode } = useEditModeContext();

@@ -1,16 +1,20 @@
 import { Trash2 } from "lucide-react";
 import { FC, useState } from "react";
 
-import { useCurrentFolderContext } from "@/features/desires";
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from "@/ui";
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/ui/dialog";
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/ui";
+
+import { useCurrentFolderContext } from "../../contexts";
 
 export const DeleteFolderModal: FC = () => {
   const { currentFolder } = useCurrentFolderContext();

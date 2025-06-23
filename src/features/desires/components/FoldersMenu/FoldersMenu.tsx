@@ -1,11 +1,13 @@
 import { FolderIcon } from "lucide-react";
 import { FC, useEffect, useMemo, useState } from "react";
 
-import { Menu } from "@/components/Menu";
-import type { Item, Items } from "@/components/types";
-import { useCurrentFolderContext } from "@/features/desires";
-import { useWishlistsQuery } from "@/features/desires/components/FoldersMenu/api";
+import type { Item, Items } from "@/components";
+import { Menu } from "@/components";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@/ui";
+
+import { useCurrentFolderContext } from "../../contexts";
+
+import { useWishlistsQuery } from "./api";
 
 type FoldersMenuProps = {
   display: "desktop" | "mobile";

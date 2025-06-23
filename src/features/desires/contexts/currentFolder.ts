@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Item } from "@/components/types";
+import { Item } from "@/components";
 import { createContextHOC } from "@/lib/contexts";
 
 const useCurrentFolder = () => {
