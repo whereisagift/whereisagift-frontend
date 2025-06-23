@@ -7,18 +7,21 @@ import { cn } from "@/utils";
 type MenuProps = {
   collapsed?: boolean;
   items: Items;
-  selectedItem?: Item;
   className?: string;
   itemClick: (item: Item) => void;
+  selectedItem: Item;
 };
 
 export const Menu: FC<MenuProps> = ({
   collapsed,
   items,
-  selectedItem,
   itemClick,
-  className,
+  selectedItem,
 }) => {
+  const handleClick = (item: Item) => {
+    itemClick(item);
+  };
+
   return (
     <div
       className={cn(
@@ -31,16 +34,20 @@ export const Menu: FC<MenuProps> = ({
         "md:w-full",
         "p-2 md:p-1",
         "w-fit",
-        className,
+        "min-w-[150px]",
+        "max-h-[calc(100vh-300px)]",
+        "overflow-hidden hover:overflow-y-auto",
+        "scrollbar-superlight", // <-- вот он
       )}
     >
       {items.map((item: Item) => (
         <Button
           key={item.key}
-          variant={item === selectedItem ? "default" : "ghost"}
+          variant={item.key === selectedItem?.key ? "default" : "ghost"}
           size="sm"
           justify="start"
-          onClick={() => itemClick(item)}
+          onClick={() => handleClick(item)}
+          className="shrink-0"
         >
           {item.label}
         </Button>

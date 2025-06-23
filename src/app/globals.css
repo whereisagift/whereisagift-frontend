@@ -154,3 +154,21 @@ html {
 .animate-scrollBackground {
   animation: scrollBackground 120s linear infinite;
 }
+
+.scrollbar-superlight {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.3) transparent; /* thumb, track */
+}
+
+.scrollbar-superlight::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-superlight::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.3); /* gray-100 с 10% прозрачности */
+  border-radius: 4px;
+}
+
+.scrollbar-superlight::-webkit-scrollbar-track {
+  background: transparent;
+}

@@ -23,8 +23,6 @@ export const ProfileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Item>(items[0]);
 
-  console.log({ selectedItem });
-
   const handleClickFoldersButton = () => setIsMenuOpen((prev) => !prev);
   const handleClickFolderItem = (item: Item) => {
     setSelectedItem(item);
@@ -64,7 +62,11 @@ export const ProfileMenu = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-fit p-0" align="end">
-        <Menu items={items} itemClick={handleClickFolderItem} />
+        <Menu
+          items={items}
+          itemClick={handleClickFolderItem}
+          selectedItem={selectedItem}
+        />
       </PopoverContent>
     </Popover>
   );

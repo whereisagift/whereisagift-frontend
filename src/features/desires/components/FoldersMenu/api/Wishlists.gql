@@ -1,0 +1,13 @@
+query Wishlists {
+	wishlists {
+		id,
+		name,
+		description,
+		creator {
+			firstName,
+			id,
+			lastName,
+		}
+	}
+
+}
