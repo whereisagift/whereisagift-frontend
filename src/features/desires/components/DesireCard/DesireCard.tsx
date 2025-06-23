@@ -1,10 +1,13 @@
+import { CheckedState } from "@radix-ui/react-checkbox";
 import { FC } from "react";
 
-import { Card } from "@/components/Card";
+import { Card } from "@/components";
+import { Checkbox } from "@/ui";
 import { cn } from "@/utils";
 
 import desireDefaultImg from "assets/desireDefaultImg.png";
 
+import { useEditModeContext } from "../../contexts";
 import { DesireButton } from "../DesireButton";
 import { type Desire } from "../DesireCards";
 
@@ -14,9 +17,24 @@ type DesireCardProps = {
 };
 
 export const DesireCard: FC<DesireCardProps> = ({ desire, likeable }) => {
+  const { isEditMode, addDesireId, removeDesireId } = useEditModeContext();
+
+  const handleClick = (check: CheckedState) => {
+    if (check) {
+      addDesireId(desire.id);
+    } else {
+      removeDesireId(desire.id);
+    }
+  };
+
   return (
     <Card
       likeable={likeable}
+      selectButton={
+        isEditMode && (
+          <Checkbox onCheckedChange={(check) => handleClick(check)} />
+        )
+      }
       image={
         <img
           alt="desire"

@@ -4,18 +4,28 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CreateWishListMutationVariables = Types.Exact<{
-  name: Types.Scalars['String']['input'];
+  wishlist: Types.WishlistInput;
 }>;
 
 
-export type CreateWishListMutation = { __typename?: 'Mutation', createWishlist?: { __typename?: 'Wishlist', id: string, name: string } | null };
+export type CreateWishListMutation = { __typename?: 'Mutation', createWishlist?: { __typename?: 'Wishlist', id: string, name: string, description?: string | null, wishes: Array<{ __typename?: 'Wish', id: string, name: string, img?: string | null, price?: { __typename?: 'Price', currency: string, value: number } | null }> } | null };
 
 
 export const CreateWishListDocument = gql`
-    mutation CreateWishList($name: String!) {
-  createWishlist(name: $name) {
+    mutation CreateWishList($wishlist: WishlistInput!) {
+  createWishlist(wishlistInput: $wishlist) {
     id
     name
+    description
+    wishes {
+      id
+      name
+      price {
+        currency
+        value
+      }
+      img
+    }
   }
 }
     `;
@@ -34,7 +44,7 @@ export type CreateWishListMutationFn = Apollo.MutationFunction<CreateWishListMut
  * @example
  * const [createWishListMutation, { data, loading, error }] = useCreateWishListMutation({
  *   variables: {
- *      name: // value for 'name'
+ *      wishlist: // value for 'wishlist'
  *   },
  * });
  */

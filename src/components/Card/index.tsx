@@ -8,6 +8,7 @@ type CardProps = {
   button?: ReactNode;
   likeable?: boolean;
   children?: ReactNode;
+  selectButton?: ReactNode;
 };
 
 export const Card: FC<CardProps> = ({
@@ -16,14 +17,18 @@ export const Card: FC<CardProps> = ({
   likeable,
   button,
   children,
+  selectButton,
 }) => {
   return (
     <div className="flex flex-col justify-between bg-white rounded-lg overflow-hidden transition-shadow hover:shadow-md">
       <div className="relative">
-        {likeable && (
+        {likeable && !selectButton && (
           <div className="absolute top-2 right-2 z-10">
             <Like />
           </div>
+        )}
+        {selectButton && (
+          <div className="absolute top-2 right-2 z-10">{selectButton}</div>
         )}
         <div className="w-full h-[150px] sm:h-[200px]">
           {/* Сюда передаём image */}

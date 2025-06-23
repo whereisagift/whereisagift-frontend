@@ -24,8 +24,16 @@ export const buttonVariants = cva(
         rounded-full shadow-md
         flex items-center justify-center
         transition-all duration-500 ease-in-out
-
         z-50
+        w-6
+        h-6 
+        top-0 
+        right-0
+        m-1 
+        transition-all 
+        duration-500 
+        hover:scale-110 
+        p-0
         `,
       },
       size: {

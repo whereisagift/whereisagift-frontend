@@ -4,7 +4,11 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 const config: CodegenConfig = {
   schema: "https://dev.whereisagift.com/graphql",
   documents: ["src/**/*.gql"],
-
+  config: {
+    scalars: {
+      DateTime: "string",
+    },
+  },
   generates: {
     // 1) Базовые типы всей схемы
     "src/types/__generated__/schema-types.ts": {
