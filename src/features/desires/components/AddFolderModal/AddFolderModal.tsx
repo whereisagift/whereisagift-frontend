@@ -28,6 +28,11 @@ const formSchema = z.object({
   description: z.string().min(2).max(500).optional().or(z.literal("")),
 });
 
+const defaultFormValues = {
+  name: "",
+  description: "",
+};
+
 export const AddFolderModal: FC<AddFolderModalProps> = ({ collapsed }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -36,10 +41,7 @@ export const AddFolderModal: FC<AddFolderModalProps> = ({ collapsed }) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-    },
+    defaultValues: defaultFormValues,
   });
   console.log(data, loading, error);
 

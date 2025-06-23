@@ -4,13 +4,10 @@ import {
   useCurrentFolderContext,
   useEditModeContext,
 } from "@/features/desires";
-import { DeleteFolderModal } from "@/features/desires/components/DeleteFolderModal";
 import { TypographyH3, TypographyH4 } from "@/ui";
 
-import {
-  EditFolderForm,
-  EditFolderIcon,
-} from "features/desires/components/EditFolder";
+import { DeleteFolderModal } from "../DeleteFolderModal";
+import { EditFolderForm, EditFolderIcon } from "../EditFolder";
 
 export const DesiresTitle: FC = () => {
   const { currentFolder } = useCurrentFolderContext();
