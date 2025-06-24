@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC } from "react";
+import { type FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 

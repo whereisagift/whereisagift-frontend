@@ -1,6 +1,6 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
-import type { ContextAndHooks, Hooks, Selector } from './types';
+import type { ContextAndHooks, Hooks, Selector } from "./types";
 
 export const createContextAndHooks = <
   Value,
@@ -17,8 +17,7 @@ export const createContextAndHooks = <
   }
 
   const hooks = selectors.length
-    ? // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      selectors.map((selector) => () => selector(useContext(Context)))
+    ? selectors.map((selector) => () => selector(useContext(Context)))
     : [() => useContext(Context)];
 
   return [Context, hooks as Hooks<Value, Selectors>];

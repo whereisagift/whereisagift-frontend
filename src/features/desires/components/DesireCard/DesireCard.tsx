@@ -1,5 +1,5 @@
-import { CheckedState } from "@radix-ui/react-checkbox";
-import { FC } from "react";
+import { type CheckedState } from "@radix-ui/react-checkbox";
+import { type FC } from "react";
 
 import { Card } from "@/components";
 import { Checkbox } from "@/ui";

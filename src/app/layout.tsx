@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { Header } from "@/features/layout";
 import { Providers } from "@/providers";

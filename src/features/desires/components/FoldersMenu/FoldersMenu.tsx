@@ -1,5 +1,5 @@
 import { FolderIcon } from "lucide-react";
-import { FC, useEffect, useMemo, useState } from "react";
+import { type FC, useEffect, useMemo, useState } from "react";
 
 import type { Item, Items } from "@/components";
 import { Menu } from "@/components";

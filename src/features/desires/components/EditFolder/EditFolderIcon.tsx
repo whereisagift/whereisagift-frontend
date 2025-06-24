@@ -1,5 +1,5 @@
 import { Check, Pencil } from "lucide-react";
-import { FC } from "react";
+import { type FC } from "react";
 
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from "@/ui";
 

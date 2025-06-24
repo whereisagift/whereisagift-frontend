@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FC, useState } from "react";
+import { type FC, useState } from "react";
 
 import { buttonVariants } from "@/ui";
 import { cn, useMainMenuRouter } from "@/utils";
