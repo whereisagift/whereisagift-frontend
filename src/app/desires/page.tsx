@@ -1,9 +1,11 @@
 "use client";
 
 import { GiftIcon, MoveLeftIcon, MoveRightIcon, PlusIcon } from "lucide-react";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 import { ButtonToUp } from "@/components/ButtonToUp";
+import { Spinner } from "@/components/Spinner";
 import {
   AddDesireModal,
   AddFolderModal,
@@ -13,14 +15,26 @@ import {
   withCurrentFolder,
   withEditMode,
 } from "@/features/desires";
+import { useCurrentUser } from "@/features/users";
 import { Button } from "@/ui";
 import { cn } from "@/utils";
 
 const Desires = () => {
+  const { user, loading } = useCurrentUser();
+
   const [collapsed, setCollapsed] = useState(false);
 
   const toggleCollapsed = () => setCollapsed((prev) => !prev);
 
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner size={40} />
+      </div>
+    );
+  if (!user) {
+    redirect("/");
+  }
   return (
     <div className="flex flex-col">
       {/* Desktop view */}

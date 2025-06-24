@@ -6,10 +6,9 @@ import { Menu } from "@/components/Menu";
 import { TelegramButton } from "@/components/TelegramButton";
 import type { Item, Items } from "@/components/types";
 import { Avatar } from "@/features/layout/components/Avatar";
+import { useAuth } from "@/features/users";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@/ui";
 import { Skeleton } from "@/ui/skeleton";
-
-import { useCurrentUser } from "./hooks";
 
 const TELEGRAM_BOT = process.env.NEXT_PUBLIC_TELEGRAM_BOT ?? "";
 
@@ -19,7 +18,7 @@ const items: Items = [
 ];
 
 export const ProfileMenu = () => {
-  const [login, logout, { data, loading }] = useCurrentUser();
+  const [{ data, loading }, login, logout] = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Item>(items[0]);
 
