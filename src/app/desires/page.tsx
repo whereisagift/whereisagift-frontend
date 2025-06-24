@@ -1,6 +1,7 @@
 "use client";
 
 import { GiftIcon, MoveLeftIcon, MoveRightIcon, PlusIcon } from "lucide-react";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 import { ButtonToUp } from "@/components/ButtonToUp";
@@ -13,13 +14,20 @@ import {
   withCurrentFolder,
   withEditMode,
 } from "@/features/desires";
+import { useCurrentUser } from "@/features/users";
 import { Button } from "@/ui";
 import { cn } from "@/utils";
 
 const Desires = () => {
+  const { user } = useCurrentUser();
+
   const [collapsed, setCollapsed] = useState(false);
 
   const toggleCollapsed = () => setCollapsed((prev) => !prev);
+
+  if (!user) {
+    redirect("/");
+  }
 
   return (
     <div className="flex flex-col">

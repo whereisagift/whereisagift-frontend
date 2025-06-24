@@ -5,7 +5,7 @@ import type { TelegramUser } from "@/types";
 
 import { useLoginMutation, useLogoutMutation, useMeQuery } from "../api";
 
-export const useCurrentUser = () => {
+export const useAuth = () => {
   const client = useApolloClient();
 
   const [login, { loading: loadingLogin }] = useLoginMutation({
@@ -39,11 +39,11 @@ export const useCurrentUser = () => {
   );
 
   return [
-    handlerLogin,
-    logout,
     {
       data,
       loading: loadingMe || loadingLogin || loadingLogout,
     },
+    handlerLogin,
+    logout,
   ] as const;
 };
