@@ -3,20 +3,33 @@ import { useCallback } from "react";
 
 import type { TelegramUser } from "@/types";
 
-import { useLoginMutation, useLogoutMutation, useMeQuery } from "../api";
+import {
+  CurrentUserFragmentDoc,
+  useLoginMutation,
+  useLogoutMutation,
+  useMeQuery,
+} from "../api";
 
 export const useAuth = () => {
   const client = useApolloClient();
 
   const [login, { loading: loadingLogin }] = useLoginMutation({
-    updateQueries: {
-      me: (prev, { mutationResult }) => {
-        if (!mutationResult.data) {
-          return prev;
-        }
-        return { data: mutationResult.data };
-      },
-    },
+    update: (cache, { data }) =>
+      cache.modify({
+        fields: {
+          me: (prevMe) => {
+            const currentMe = data?.login;
+            const meRef = cache.writeFragment({
+              data: currentMe,
+              fragment: CurrentUserFragmentDoc,
+            });
+
+            console.debug(prevMe, currentMe, meRef);
+
+            return meRef ?? prevMe;
+          },
+        },
+      }),
   });
   const [logout, { loading: loadingLogout }] = useLogoutMutation({
     onCompleted: () => {
