@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import { useCurrentFolderContext } from "@/features/desires";
 import { TypographyH4 } from "@/ui";
 import { cn } from "@/utils";
@@ -17,10 +15,7 @@ export type Booking = {
 export const DesireCards = () => {
   const { currentFolder } = useCurrentFolderContext();
 
-  const desires = useMemo(() => {
-    return currentFolder?.desires;
-  }, [currentFolder?.desires]);
-
+  const desires = currentFolder?.desires;
   return (
     <div
       className={cn(
