@@ -1,18 +1,8 @@
+import { useCurrentFolderContext } from "@/features/desires";
+import { TypographyH4 } from "@/ui";
 import { cn } from "@/utils";
 
-import * as mock from "mock.json";
-
 import { DesireCard } from "../DesireCard";
-
-export type Desire = {
-  id: number;
-  name: string;
-  url: string;
-  pictureUrl?: string;
-  booking?: Booking;
-  orderDate?: string;
-  price?: string;
-};
 
 export type Booking = {
   reservist: {
@@ -23,19 +13,25 @@ export type Booking = {
 };
 
 export const DesireCards = () => {
-  const desires: Desire[] = mock.desires;
+  const { currentFolder } = useCurrentFolderContext();
 
+  const desires = currentFolder?.desires;
   return (
     <div
       className={cn(
         "w-full grid gap-4 sm:gap-6 md:gap-8",
         "md:grid-cols-[repeat(auto-fill,minmax(170px,1fr))]",
         "grid-cols-[repeat(auto-fill,minmax(130px,1fr))]",
+        desires?.length || "flex",
       )}
     >
-      {desires.map((desire, index) => (
-        <DesireCard key={`${desire.url}${index}`} desire={desire} likeable />
-      ))}
+      {desires?.length ? (
+        desires.map((desire, index) => (
+          <DesireCard key={desire.id + index} desire={desire} likeable />
+        ))
+      ) : (
+        <TypographyH4>У вас пока нет желаний</TypographyH4>
+      )}
     </div>
   );
 };

@@ -78,18 +78,35 @@ export type PriceInput = {
   value: Scalars['Float']['input'];
 };
 
+export type Product = {
+  __typename?: 'Product';
+  description?: Maybe<Scalars['String']['output']>;
+  img?: Maybe<Scalars['String']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  price?: Maybe<Price>;
+  type: ProductSource;
+};
+
 export enum ProductSource {
   Manual = 'Manual',
-  Steam = 'Steam'
+  Steam = 'Steam',
+  Wildberries = 'Wildberries'
 }
 
 export type Query = {
   __typename?: 'Query';
   me: User;
+  productByUrl: Product;
   user?: Maybe<User>;
   wish: Wish;
   wishes: Array<Wish>;
   wishlists: Array<Wishlist>;
+};
+
+
+export type QueryProductByUrlArgs = {
+  url: Scalars['String']['input'];
 };
 
 

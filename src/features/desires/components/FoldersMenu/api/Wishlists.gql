@@ -8,6 +8,17 @@ query Wishlists {
 			id,
 			lastName,
 		}
+		wishes {
+			id
+			name
+			description
+			img
+			price {
+				currency
+				value
+			}
+			rate
+		}
 	}
 
 }

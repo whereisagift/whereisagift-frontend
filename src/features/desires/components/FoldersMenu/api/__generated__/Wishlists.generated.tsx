@@ -6,7 +6,7 @@ const defaultOptions = {} as const;
 export type WishlistsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type WishlistsQuery = { __typename?: 'Query', wishlists: Array<{ __typename?: 'Wishlist', id: string, name: string, description?: string | null, creator: { __typename?: 'User', firstName: string, id: string, lastName?: string | null } }> };
+export type WishlistsQuery = { __typename?: 'Query', wishlists: Array<{ __typename?: 'Wishlist', id: string, name: string, description?: string | null, creator: { __typename?: 'User', firstName: string, id: string, lastName?: string | null }, wishes: Array<{ __typename?: 'Wish', id: string, name: string, description?: string | null, img?: string | null, rate: number, price?: { __typename?: 'Price', currency: string, value: number } | null }> }> };
 
 
 export const WishlistsDocument = gql`
@@ -19,6 +19,17 @@ export const WishlistsDocument = gql`
       firstName
       id
       lastName
+    }
+    wishes {
+      id
+      name
+      description
+      img
+      price {
+        currency
+        value
+      }
+      rate
     }
   }
 }

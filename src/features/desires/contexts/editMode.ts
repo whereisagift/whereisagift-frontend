@@ -4,13 +4,13 @@ import { createContextHOC } from "@/lib/contexts";
 
 const useEditMode = () => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const [selectedDesireIds, setSelectedDesireIds] = useState<number[]>([]);
+  const [selectedDesireIds, setSelectedDesireIds] = useState<string[]>([]);
 
-  const addDesireId = (id: number) => {
+  const addDesireId = (id: string) => {
     setSelectedDesireIds((prev) => [...prev, id]);
   };
 
-  const removeDesireId = (id: number) => {
+  const removeDesireId = (id: string) => {
     setSelectedDesireIds((prev) => prev.filter((itemId) => itemId !== id));
   };
 

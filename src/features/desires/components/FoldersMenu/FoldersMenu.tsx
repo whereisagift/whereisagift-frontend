@@ -29,7 +29,8 @@ export const FoldersMenu: FC<FoldersMenuProps> = ({ display, collapsed }) => {
           return {
             key: wishlist.id,
             label: wishlist.name,
-            description: wishlist.description || undefined,
+            description: wishlist.description ?? undefined,
+            desires: wishlist.wishes ?? undefined,
           };
         })
         .reverse(),
