@@ -1,7 +1,7 @@
 import { type CheckedState } from "@radix-ui/react-checkbox";
 import { type FC } from "react";
 
-import { Card } from "@/components";
+import { Card, type Desire } from "@/components";
 import { Checkbox } from "@/ui";
 import { cn } from "@/utils";
 
@@ -9,7 +9,6 @@ import desireDefaultImg from "assets/desireDefaultImg.png";
 
 import { useEditModeContext } from "../../contexts";
 import { DesireButton } from "../DesireButton";
-import { type Desire } from "../DesireCards";
 
 type DesireCardProps = {
   desire: Desire;
@@ -38,7 +37,7 @@ export const DesireCard: FC<DesireCardProps> = ({ desire, likeable }) => {
       image={
         <img
           alt="desire"
-          src={desire?.pictureUrl ?? desireDefaultImg.src}
+          src={desire?.img ?? desireDefaultImg.src}
           className="w-full h-full object-cover"
         />
       }
@@ -54,7 +53,9 @@ export const DesireCard: FC<DesireCardProps> = ({ desire, likeable }) => {
             {desire.name}
           </p>
           {desire.price && (
-            <p className="mt-2 text-sm font-semibold">{desire.price} Р.</p>
+            <p className="mt-2 text-sm font-semibold">
+              {desire.price.value} {desire.price.currency}
+            </p>
           )}
         </div>
       }

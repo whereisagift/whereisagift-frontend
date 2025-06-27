@@ -5,7 +5,7 @@ import { createContextHOC } from "@/lib/contexts";
 
 const useCurrentFolder = () => {
   const [currentFolder, setCurrentFolder] = useState<Item | undefined>();
-
+  console.log(currentFolder);
   return { currentFolder, setCurrentFolder };
 };
 
