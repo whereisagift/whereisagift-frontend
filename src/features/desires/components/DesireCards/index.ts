@@ -1,1 +1,1 @@
-export { DesireCards, type Desire, type Booking } from "./DesireCards";
+export { DesireCards, type Booking } from "./DesireCards";
