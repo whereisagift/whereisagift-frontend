@@ -1,21 +1,34 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type FC, type ReactNode } from "react";
+import { type FC, type ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Rate } from "@/components/Rate";
-import { Button } from "@/ui";
+import { useSelectedFolderIdsContext } from "@/features/desires/contexts/selectedFolderIds";
+import { ProductSource } from "@/types";
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/ui/dialog";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/ui";
 import { Form, FormControl, FormField, FormItem } from "@/ui/form";
 import { Input } from "@/ui/input";
+import { Label } from "@/ui/label";
 import { Textarea } from "@/ui/textarea";
+
+import { useCreateWishMutation } from "./api";
+import { FoldersSelect } from "./FoldersSelect";
 
 type AddDesireModalProps = {
   children: ReactNode;
@@ -24,12 +37,18 @@ type AddDesireModalProps = {
 const formSchema = z.object({
   url: z.string().url().optional().or(z.literal("")),
   name: z.string().min(2).max(50),
-  description: z.string().min(2).max(500).optional().or(z.literal("")),
+  description: z.string().min(2).max(300).optional().or(z.literal("")),
   price: z.coerce.number().optional().or(z.literal("")),
   rate: z.number().optional().or(z.literal(0)),
+  currency: z.string().optional().or(z.literal("")),
 });
 
 export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [createWish, { data, loading, error }] = useCreateWishMutation();
+  const { selectedFolderIds } = useSelectedFolderIdsContext();
+  console.log(data, loading, error);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,15 +57,43 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
       description: "",
       rate: 0,
       price: "",
+      currency: "RUB",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await createWish({
+      variables: {
+        wish: {
+          name: values.name,
+          description: values.description || undefined,
+          link: values.url || undefined,
+          rate: values.rate,
+          price:
+            values.price && values.currency
+              ? {
+                  currency: values.currency,
+                  value: values.price,
+                }
+              : undefined,
+          type: ProductSource.Manual,
+          wishlistIds: selectedFolderIds,
+        },
+      },
+    });
+    setIsModalOpen(false);
   }
 
+  const handleOpenModalChange = (isOpen: boolean) => {
+    setIsModalOpen(isOpen);
+    form.reset();
+  };
+
   return (
-    <Dialog>
+    <Dialog
+      open={isModalOpen}
+      onOpenChange={(open) => handleOpenModalChange(open)}
+    >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="not-md:w-full not-md:h-full md:w-1/2 md: h-fit pt-10">
         <DialogHeader>
@@ -96,28 +143,63 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input type="number" placeholder="Цена" {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            <div className="flex justify-between">
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input type="number" placeholder="Цена" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="currency"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Select
+                          {...field}
+                          onValueChange={(value) => field.onChange(value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="RUB">RUB</SelectItem>
+                            <SelectItem value="BYN">BYN</SelectItem>
+                            <SelectItem value="UAH">UAH</SelectItem>
+                            <SelectItem value="KZT">KZT</SelectItem>
+                            <SelectItem value="USD">USD</SelectItem>
+                            <SelectItem value="EUR">EUR</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                    </FormItem>
+                  );
+                }}
+              />
+            </div>
             <FormField
               control={form.control}
               name="rate"
               render={({ field }) => (
                 <FormItem>
-                  <FormControl>
-                    <Rate {...field} />
-                  </FormControl>
+                  <div className="flex justify-between">
+                    <Label>Степень желания</Label>
+                    <FormControl>
+                      <Rate {...field} />
+                    </FormControl>
+                  </div>
                 </FormItem>
               )}
             />
+
+            <FoldersSelect />
             <div className="flex justify-between">
               <Button variant="outline">Отмена</Button>
               <Button>Добавить</Button>

@@ -14,6 +14,7 @@ import {
   FoldersMenu,
   withCurrentFolder,
   withEditMode,
+  withSelectedFolderIds,
 } from "@/features/desires";
 import { useCurrentUser } from "@/features/users";
 import { Button } from "@/ui";
@@ -89,4 +90,4 @@ const Desires = () => {
   );
 };
 
-export default withCurrentFolder(withEditMode(Desires));
+export default withSelectedFolderIds(withCurrentFolder(withEditMode(Desires)));
