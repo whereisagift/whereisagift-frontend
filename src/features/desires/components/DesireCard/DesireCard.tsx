@@ -59,7 +59,7 @@ export const DesireCard: FC<DesireCardProps> = ({ desire, likeable }) => {
           )}
         </div>
       }
-      button={<DesireButton desire={desire} />}
+      button={<DesireButton />}
     />
   );
 };
