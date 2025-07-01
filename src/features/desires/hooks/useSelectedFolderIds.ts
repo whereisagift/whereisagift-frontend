@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-import { createContextHOC } from "@/lib/contexts";
-
-const useSelectedFolderIds = () => {
+export const useSelectedFolderIds = () => {
   const [selectedFolderIds, setSelectedFolderIds] = useState<string[]>([]);
 
   const addFolderId = (id: string) => {
@@ -19,10 +17,3 @@ const useSelectedFolderIds = () => {
     removeFolderId,
   };
 };
-
-export const [withSelectedFolderIds, useSelectedFolderIdsContext] =
-  createContextHOC(useSelectedFolderIds, {
-    selectedFolderIds: [],
-    addFolderId: () => {},
-    removeFolderId: () => {},
-  });

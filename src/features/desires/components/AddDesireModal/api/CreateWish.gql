@@ -1,12 +1,6 @@
 mutation CreateWish($wish: WishInput!) {
 	createWish(wishInput: $wish) {
 		createdAt
-		creator {
-			firstName
-			id
-			lastName
-			username
-		}
 		description
 		id
 		img
@@ -19,8 +13,5 @@ mutation CreateWish($wish: WishInput!) {
 		rate
 		type
 		updatedAt
-		wishlists {
-			id
-		}
 	}
 }

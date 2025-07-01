@@ -8,19 +8,13 @@ export type CreateWishMutationVariables = Types.Exact<{
 }>;
 
 
-export type CreateWishMutation = { __typename?: 'Mutation', createWish: { __typename?: 'Wish', createdAt: string, description?: string | null, id: string, img?: string | null, link?: string | null, name: string, rate: number, type: Types.ProductSource, updatedAt: string, creator: { __typename?: 'User', firstName: string, id: string, lastName?: string | null, username: string }, price?: { __typename?: 'Price', currency: string, value: number } | null, wishlists: Array<{ __typename?: 'Wishlist', id: string }> } };
+export type CreateWishMutation = { __typename?: 'Mutation', createWish: { __typename?: 'Wish', createdAt: string, description?: string | null, id: string, img?: string | null, link?: string | null, name: string, rate: number, type: Types.ProductSource, updatedAt: string, price?: { __typename?: 'Price', currency: string, value: number } | null } };
 
 
 export const CreateWishDocument = gql`
     mutation CreateWish($wish: WishInput!) {
   createWish(wishInput: $wish) {
     createdAt
-    creator {
-      firstName
-      id
-      lastName
-      username
-    }
     description
     id
     img
@@ -33,9 +27,6 @@ export const CreateWishDocument = gql`
     rate
     type
     updatedAt
-    wishlists {
-      id
-    }
   }
 }
     `;

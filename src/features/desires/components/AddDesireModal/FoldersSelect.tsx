@@ -4,13 +4,19 @@ import { type FC } from "react";
 import { Spinner } from "@/components/Spinner";
 import { AddFolderModal } from "@/features/desires";
 import { useWishlistsQuery } from "@/features/desires/components/FoldersMenu/api";
-import { useSelectedFolderIdsContext } from "@/features/desires/contexts/selectedFolderIds";
 import { Switch } from "@/ui";
 import { Label } from "@/ui/label";
 
-export const FoldersSelect: FC = () => {
+type FoldersSelectProps = {
+  addFolderId: (id: string) => void;
+  removeFolderId: (id: string) => void;
+};
+
+export const FoldersSelect: FC<FoldersSelectProps> = ({
+  addFolderId,
+  removeFolderId,
+}) => {
   const { data: dataWishlists, loading } = useWishlistsQuery();
-  const { addFolderId, removeFolderId } = useSelectedFolderIdsContext();
 
   const handleClick = (checked: CheckedState, id: string) => {
     if (checked) {

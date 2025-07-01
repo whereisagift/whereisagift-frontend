@@ -5,8 +5,14 @@ import { type FC, type ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Rate } from "@/components/Rate";
-import { useSelectedFolderIdsContext } from "@/features/desires/contexts/selectedFolderIds";
+import {
+  FieldInput,
+  FieldRate,
+  FieldSelect,
+  FieldTextarea,
+} from "@/components";
+import { CURRENCY } from "@/constants";
+import { useSelectedFolderIds } from "@/features/desires/hooks";
 import { ProductSource } from "@/types";
 import {
   Button,
@@ -16,16 +22,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Form,
 } from "@/ui";
-import { Form, FormControl, FormField, FormItem } from "@/ui/form";
-import { Input } from "@/ui/input";
-import { Label } from "@/ui/label";
-import { Textarea } from "@/ui/textarea";
 
 import { useCreateWishMutation } from "./api";
 import { FoldersSelect } from "./FoldersSelect";
@@ -43,10 +41,17 @@ const formSchema = z.object({
   currency: z.string().optional().or(z.literal("")),
 });
 
+const currencyItems = CURRENCY.map((value) => ({
+  label: value,
+  value,
+}));
+
 export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createWish, { data, loading, error }] = useCreateWishMutation();
-  const { selectedFolderIds } = useSelectedFolderIdsContext();
+  const { selectedFolderIds, addFolderId, removeFolderId } =
+    useSelectedFolderIds();
+
   console.log(data, loading, error);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -102,104 +107,46 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
+            <FieldInput
               control={form.control}
               name="url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      type="url"
-                      placeholder="Ссылка на подарок"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
+              type="url"
+              placeholder="Ссылка"
             />
-            <FormField
+            <FieldInput
               control={form.control}
               name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input type="text" placeholder="Название" {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
+              type="text"
+              placeholder="Название"
             />
-            <FormField
+            <FieldTextarea
               control={form.control}
               name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      className="resize-none"
-                      placeholder="Описание"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
+              placeholder="Описание"
+              className="resize-none"
             />
             <div className="flex justify-between">
-              <FormField
+              <FieldInput
                 control={form.control}
                 name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input type="number" placeholder="Цена" {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
+                type="number"
+                placeholder="Цена"
               />
-              <FormField
+              <FieldSelect
                 control={form.control}
                 name="currency"
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormControl>
-                        <Select
-                          {...field}
-                          onValueChange={(value) => field.onChange(value)}
-                        >
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="RUB">RUB</SelectItem>
-                            <SelectItem value="BYN">BYN</SelectItem>
-                            <SelectItem value="UAH">UAH</SelectItem>
-                            <SelectItem value="KZT">KZT</SelectItem>
-                            <SelectItem value="USD">USD</SelectItem>
-                            <SelectItem value="EUR">EUR</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                    </FormItem>
-                  );
-                }}
+                items={currencyItems}
               />
             </div>
-            <FormField
+            <FieldRate
               control={form.control}
               name="rate"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex justify-between">
-                    <Label>Степень желания</Label>
-                    <FormControl>
-                      <Rate {...field} />
-                    </FormControl>
-                  </div>
-                </FormItem>
-              )}
+              label="Степень желания"
             />
-
-            <FoldersSelect />
+            <FoldersSelect
+              addFolderId={addFolderId}
+              removeFolderId={removeFolderId}
+            />
             <div className="flex justify-between">
               <Button variant="outline">Отмена</Button>
               <Button>Добавить</Button>

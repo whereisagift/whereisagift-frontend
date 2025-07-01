@@ -70,6 +70,12 @@
       ],
       "@/pages/*": [
         "./pages/*"
+      ],
+      "@/constants": [
+        "./constants"
+      ],
+      "@/constants/*": [
+        "./constants/*"
       ]
     },
     "target": "ES2017"
