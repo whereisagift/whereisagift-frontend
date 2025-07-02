@@ -1,21 +1,33 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type FC, type ReactNode } from "react";
+import { type FC, type ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Rate } from "@/components/Rate";
-import { Button } from "@/ui";
 import {
+  FieldInput,
+  FieldRate,
+  FieldSelect,
+  FieldTextarea,
+} from "@/components";
+import { CURRENCY } from "@/constants";
+import { ProductSource } from "@/types";
+import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/ui/dialog";
-import { Form, FormControl, FormField, FormItem } from "@/ui/form";
-import { Input } from "@/ui/input";
-import { Textarea } from "@/ui/textarea";
+  Form,
+} from "@/ui";
+
+import { useSelectedFolderIds } from "../../hooks";
+
+import { useCreateWishMutation } from "./api";
+import { FoldersSelect } from "./FoldersSelect";
 
 type AddDesireModalProps = {
   children: ReactNode;
@@ -23,30 +35,85 @@ type AddDesireModalProps = {
 
 const formSchema = z.object({
   url: z.string().url().optional().or(z.literal("")),
+  img: z.string().url().optional().or(z.literal("")),
   name: z.string().min(2).max(50),
-  description: z.string().min(2).max(500).optional().or(z.literal("")),
+  description: z.string().min(2).max(300).optional().or(z.literal("")),
   price: z.coerce.number().optional().or(z.literal("")),
   rate: z.number().optional().or(z.literal(0)),
+  currency: z.string().optional().or(z.literal("")),
 });
 
+const currencyItems = CURRENCY.map((value) => ({
+  label: value,
+  value,
+}));
+
 export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [createWish, { data, loading, error }] = useCreateWishMutation();
+  const { selectedFolderIds, addFolderId, removeFolderId } =
+    useSelectedFolderIds();
+  const [selectedFolderIdsError, setSelectedFolderIdsError] =
+    useState<string>();
+
+  useEffect(() => {
+    if (selectedFolderIds.length) setSelectedFolderIdsError(undefined);
+  }, [selectedFolderIds.length]);
+
+  console.log(data, loading, error);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    disabled: loading,
     defaultValues: {
       url: "",
+      img: "",
       name: "",
       description: "",
       rate: 0,
       price: "",
+      currency: "RUB",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!selectedFolderIds.length) {
+      setSelectedFolderIdsError("Выберете минимум одну папку");
+      return;
+    }
+    await createWish({
+      variables: {
+        wish: {
+          name: values.name,
+          description: values.description || undefined,
+          link: values.url || undefined,
+          img: values.img || undefined,
+          rate: values.rate,
+          price:
+            values.price && values.currency
+              ? {
+                  currency: values.currency,
+                  value: values.price,
+                }
+              : undefined,
+          type: ProductSource.Manual,
+          wishlistIds: selectedFolderIds,
+        },
+      },
+    });
+    setIsModalOpen(false);
   }
 
+  const handleOpenModalChange = (isOpen: boolean) => {
+    setIsModalOpen(isOpen);
+    form.reset();
+  };
+
   return (
-    <Dialog>
+    <Dialog
+      open={isModalOpen}
+      onOpenChange={(open) => handleOpenModalChange(open)}
+    >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="not-md:w-full not-md:h-full md:w-1/2 md: h-fit pt-10">
         <DialogHeader>
@@ -55,72 +122,59 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
+            <FieldInput
               control={form.control}
               name="url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      type="url"
-                      placeholder="Ссылка на подарок"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
+              type="url"
+              placeholder="Ссылка"
             />
-            <FormField
+            <FieldInput
               control={form.control}
               name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input type="text" placeholder="Название" {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
+              type="text"
+              placeholder="Название"
             />
-            <FormField
+            <FieldTextarea
               control={form.control}
               name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      className="resize-none"
-                      placeholder="Описание"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
+              placeholder="Описание"
+              className="resize-none"
             />
-            <FormField
+            <FieldInput
               control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input type="number" placeholder="Цена" {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="rate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Rate {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
+              name="img"
+              type="url"
+              placeholder="Ссылка на картинку"
             />
             <div className="flex justify-between">
-              <Button variant="outline">Отмена</Button>
-              <Button>Добавить</Button>
+              <FieldInput
+                control={form.control}
+                name="price"
+                type="number"
+                placeholder="Цена"
+              />
+              <FieldSelect
+                control={form.control}
+                name="currency"
+                items={currencyItems}
+              />
+            </div>
+            <FieldRate
+              control={form.control}
+              name="rate"
+              label="Степень желания"
+              disabled={loading}
+            />
+            <FoldersSelect
+              addFolderId={addFolderId}
+              removeFolderId={removeFolderId}
+              error={selectedFolderIdsError}
+            />
+            <div className="flex justify-between">
+              <Button variant="outline" disabled={loading}>
+                Отмена
+              </Button>
+              <Button disabled={loading}>Добавить</Button>
             </div>
           </form>
         </Form>

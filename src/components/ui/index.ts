@@ -7,3 +7,6 @@ export * from "./input";
 export * from "./textarea";
 export * from "./form";
 export * from "./dialog";
+export * from "./select";
+export * from "./switch";
+export * from "./label";
