@@ -10,11 +10,13 @@ import { Label } from "@/ui/label";
 type FoldersSelectProps = {
   addFolderId: (id: string) => void;
   removeFolderId: (id: string) => void;
+  error?: string;
 };
 
 export const FoldersSelect: FC<FoldersSelectProps> = ({
   addFolderId,
   removeFolderId,
+  error,
 }) => {
   const { data: dataWishlists, loading } = useWishlistsQuery();
 
@@ -40,17 +42,20 @@ export const FoldersSelect: FC<FoldersSelectProps> = ({
   return (
     <div className="flex flex-col gap-3">
       <Label>Добавить желание в папки:</Label>
-      {wishlists?.map((wishlist) => (
-        <div
-          key={wishlist.id + wishlist.__typename}
-          className="flex gap-3 items-start"
-        >
-          <Switch
-            onCheckedChange={(checked) => handleClick(checked, wishlist.id)}
-          />
-          <Label>{wishlist.name}</Label>
-        </div>
-      ))}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {wishlists
+        .map((wishlist) => (
+          <div
+            key={wishlist.id + wishlist.__typename}
+            className="flex gap-3 items-start"
+          >
+            <Switch
+              onCheckedChange={(checked) => handleClick(checked, wishlist.id)}
+            />
+            <Label>{wishlist.name}</Label>
+          </div>
+        ))
+        .reverse()}
     </div>
   );
 };

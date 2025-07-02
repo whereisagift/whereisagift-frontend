@@ -6,8 +6,7 @@ import {
   type FieldValues,
 } from "react-hook-form";
 
-import { Textarea } from "@/ui";
-import { FormControl, FormField, FormItem } from "@/ui/form";
+import { FormControl, FormField, FormItem, Textarea } from "@/ui";
 
 type FieldTextareaProps<
   TFieldValues extends FieldValues = FieldValues,

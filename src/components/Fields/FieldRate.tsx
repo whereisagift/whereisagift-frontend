@@ -7,8 +7,7 @@ import {
 } from "react-hook-form";
 
 import { Rate } from "@/components";
-import { Label } from "@/ui";
-import { FormControl, FormField, FormItem } from "@/ui/form";
+import { FormControl, FormField, FormItem, Label } from "@/ui";
 
 type FieldRateProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -17,6 +16,7 @@ type FieldRateProps<
   control: Control<TFieldValues, TName>;
   name: TName;
   label?: string;
+  disabled?: boolean;
 };
 
 export const FieldRate = <
@@ -26,6 +26,7 @@ export const FieldRate = <
   control,
   name,
   label,
+  disabled,
 }: FieldRateProps<TFieldValues, TName>) => {
   return (
     <FormField
@@ -36,7 +37,7 @@ export const FieldRate = <
           <div className="flex justify-between">
             {label && <Label>{label}</Label>}
             <FormControl>
-              <Rate {...field} />
+              <Rate {...field} disabled={disabled} />
             </FormControl>
           </div>
         </FormItem>

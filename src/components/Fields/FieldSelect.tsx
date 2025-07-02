@@ -7,13 +7,15 @@ import {
 } from "react-hook-form";
 
 import {
+  FormControl,
+  FormField,
+  FormItem,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/ui";
-import { FormControl, FormField, FormItem } from "@/ui/form";
 
 type FieldSelectProps<
   TFieldValues extends FieldValues = FieldValues,

@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type FC, type ReactNode, useState } from "react";
+import { type FC, type ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -12,7 +12,6 @@ import {
   FieldTextarea,
 } from "@/components";
 import { CURRENCY } from "@/constants";
-import { useSelectedFolderIds } from "@/features/desires/hooks";
 import { ProductSource } from "@/types";
 import {
   Button,
@@ -25,6 +24,8 @@ import {
   Form,
 } from "@/ui";
 
+import { useSelectedFolderIds } from "../../hooks";
+
 import { useCreateWishMutation } from "./api";
 import { FoldersSelect } from "./FoldersSelect";
 
@@ -34,6 +35,7 @@ type AddDesireModalProps = {
 
 const formSchema = z.object({
   url: z.string().url().optional().or(z.literal("")),
+  img: z.string().url().optional().or(z.literal("")),
   name: z.string().min(2).max(50),
   description: z.string().min(2).max(300).optional().or(z.literal("")),
   price: z.coerce.number().optional().or(z.literal("")),
@@ -51,13 +53,21 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
   const [createWish, { data, loading, error }] = useCreateWishMutation();
   const { selectedFolderIds, addFolderId, removeFolderId } =
     useSelectedFolderIds();
+  const [selectedFolderIdsError, setSelectedFolderIdsError] =
+    useState<string>();
+
+  useEffect(() => {
+    if (selectedFolderIds.length) setSelectedFolderIdsError(undefined);
+  }, [selectedFolderIds.length]);
 
   console.log(data, loading, error);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    disabled: loading,
     defaultValues: {
       url: "",
+      img: "",
       name: "",
       description: "",
       rate: 0,
@@ -67,12 +77,17 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!selectedFolderIds.length) {
+      setSelectedFolderIdsError("Выберете минимум одну папку");
+      return;
+    }
     await createWish({
       variables: {
         wish: {
           name: values.name,
           description: values.description || undefined,
           link: values.url || undefined,
+          img: values.img || undefined,
           rate: values.rate,
           price:
             values.price && values.currency
@@ -125,6 +140,12 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
               placeholder="Описание"
               className="resize-none"
             />
+            <FieldInput
+              control={form.control}
+              name="img"
+              type="url"
+              placeholder="Ссылка на картинку"
+            />
             <div className="flex justify-between">
               <FieldInput
                 control={form.control}
@@ -142,14 +163,18 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
               control={form.control}
               name="rate"
               label="Степень желания"
+              disabled={loading}
             />
             <FoldersSelect
               addFolderId={addFolderId}
               removeFolderId={removeFolderId}
+              error={selectedFolderIdsError}
             />
             <div className="flex justify-between">
-              <Button variant="outline">Отмена</Button>
-              <Button>Добавить</Button>
+              <Button variant="outline" disabled={loading}>
+                Отмена
+              </Button>
+              <Button disabled={loading}>Добавить</Button>
             </div>
           </form>
         </Form>

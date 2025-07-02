@@ -10,17 +10,23 @@ interface RateProps {
   /** Maximum number of stars */
   max?: number;
   /** If true, disables interaction */
-  readOnly?: boolean;
+  disabled?: boolean;
   /** Callback when rating changes */
   onChange?: (value: number) => void;
   /** Additional container classes */
   className?: string;
 }
 
+const getFillColor = (filled: boolean, disabled: boolean): string => {
+  if (disabled) return "#D1D5DB";
+  if (filled) return "#FFE13F";
+  else return "none";
+};
+
 export const Rate: React.FC<RateProps> = ({
   value = 0,
   max = 5,
-  readOnly = false,
+  disabled = false,
   onChange,
   className,
 }) => {
@@ -29,15 +35,15 @@ export const Rate: React.FC<RateProps> = ({
   const displayValue = hoverValue || selectedValue;
 
   const handleMouseEnter = (index: number) => {
-    if (readOnly) return;
+    if (disabled) return;
     setHoverValue(index);
   };
   const handleMouseLeave = () => {
-    if (readOnly) return;
+    if (disabled) return;
     setHoverValue(0);
   };
   const handleClick = (index: number) => {
-    if (readOnly) return;
+    if (disabled) return;
     if (onChange) onChange(index);
     setSelectedValue(index);
   };
@@ -58,14 +64,14 @@ export const Rate: React.FC<RateProps> = ({
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleClick(index)}
-            disabled={readOnly}
+            disabled={disabled}
             role="radio"
             aria-checked={filled}
             className="p-1 focus:outline-none"
           >
             <Star
               className={cn("h-6 w-6")}
-              fill={filled ? "#FFE13F" : "none"}
+              fill={getFillColor(filled, disabled)}
               stroke={filled ? "#6F47D7" : "#D1D5DB"}
               strokeWidth={1}
             />
