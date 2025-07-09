@@ -12,7 +12,6 @@ import {
   FieldTextarea,
 } from "@/components";
 import { CURRENCY } from "@/constants";
-import { ProductSource } from "@/types";
 import {
   Button,
   Dialog,
@@ -96,7 +95,6 @@ export const AddDesireModal: FC<AddDesireModalProps> = ({ children }) => {
                   value: values.price,
                 }
               : undefined,
-          type: ProductSource.Manual,
           wishlistIds: selectedFolderIds,
         },
       },
