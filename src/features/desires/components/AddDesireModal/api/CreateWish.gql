@@ -1,5 +1,5 @@
-mutation CreateWish($wish: WishInput!) {
-	createWish(wishInput: $wish) {
+mutation CreateWish($wish: CreateWishInput!) {
+	createWish(input: $wish) {
 		createdAt
 		description
 		id

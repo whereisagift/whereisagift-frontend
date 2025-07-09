@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CreateWishListMutationVariables = Types.Exact<{
-  wishlist: Types.WishlistInput;
+  wishlist: Types.CreateWishlistInput;
 }>;
 
 
@@ -12,8 +12,8 @@ export type CreateWishListMutation = { __typename?: 'Mutation', createWishlist?:
 
 
 export const CreateWishListDocument = gql`
-    mutation CreateWishList($wishlist: WishlistInput!) {
-  createWishlist(wishlistInput: $wishlist) {
+    mutation CreateWishList($wishlist: CreateWishlistInput!) {
+  createWishlist(input: $wishlist) {
     id
     name
     description

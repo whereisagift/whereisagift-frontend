@@ -56,7 +56,7 @@ export const ProfileMenu = () => {
           onClick={handleClickFoldersButton}
           className="self-center justify-self-end pr-0 mr-[2vw]"
         >
-          {`${data?.me.firstName} ${data?.me.lastName}`}
+          {`${data?.me.firstName} ${data?.me.lastName ?? ""}`}
           <Avatar src={data.me.photoUrl} />
         </Button>
       </PopoverTrigger>

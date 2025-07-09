@@ -19,7 +19,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={poiret.className}>
+    <html lang="ru" className={poiret.className}>
       <head>
         <title>WhereIsAGift</title>
       </head>
