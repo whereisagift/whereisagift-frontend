@@ -21,7 +21,7 @@ export type AuthPayload = {
   hash: Scalars['String']['input'];
   id: Scalars['Int']['input'];
   last_name?: InputMaybe<Scalars['String']['input']>;
-  photo_url: Scalars['String']['input'];
+  photo_url?: InputMaybe<Scalars['String']['input']>;
   username: Scalars['String']['input'];
 };
 
@@ -29,6 +29,22 @@ export type Booking = {
   __typename?: 'Booking';
   date: Scalars['String']['output'];
   nickname: Scalars['String']['output'];
+};
+
+export type CreateWishInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  img?: InputMaybe<Scalars['String']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  price?: InputMaybe<PriceInput>;
+  rate?: InputMaybe<Scalars['Int']['input']>;
+  wishlistIds: Array<Scalars['ID']['input']>;
+};
+
+export type CreateWishlistInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  wishIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 export type Mutation = {
@@ -43,12 +59,12 @@ export type Mutation = {
 
 
 export type MutationCreateWishArgs = {
-  wishInput: WishInput;
+  input: CreateWishInput;
 };
 
 
 export type MutationCreateWishlistArgs = {
-  wishlistInput: WishlistInput;
+  input: CreateWishlistInput;
 };
 
 
@@ -64,7 +80,7 @@ export type MutationLoginArgs = {
 
 export type MutationUpdateWishArgs = {
   id: Scalars['ID']['input'];
-  wishInput: WishInput;
+  input: UpdateWishInput;
 };
 
 export type Price = {
@@ -101,6 +117,7 @@ export type Query = {
   user?: Maybe<User>;
   wish: Wish;
   wishes: Array<Wish>;
+  wishlist: Wishlist;
   wishlists: Array<Wishlist>;
 };
 
@@ -119,12 +136,26 @@ export type QueryWishArgs = {
   id: Scalars['ID']['input'];
 };
 
+
+export type QueryWishlistArgs = {
+  id: Scalars['ID']['input'];
+};
+
+export type UpdateWishInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  img?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<PriceInput>;
+  rate?: InputMaybe<Scalars['Int']['input']>;
+  wishlistIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
 export type User = {
   __typename?: 'User';
   firstName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   lastName?: Maybe<Scalars['String']['output']>;
-  photoUrl: Scalars['String']['output'];
+  photoUrl?: Maybe<Scalars['String']['output']>;
   telegramId: Scalars['String']['output'];
   username: Scalars['String']['output'];
   wishes: Array<Wish>;
@@ -147,17 +178,6 @@ export type Wish = {
   wishlists: Array<Wishlist>;
 };
 
-export type WishInput = {
-  description?: InputMaybe<Scalars['String']['input']>;
-  img?: InputMaybe<Scalars['String']['input']>;
-  link?: InputMaybe<Scalars['String']['input']>;
-  name: Scalars['String']['input'];
-  price?: InputMaybe<PriceInput>;
-  rate?: InputMaybe<Scalars['Int']['input']>;
-  type: ProductSource;
-  wishlistIds: Array<Scalars['ID']['input']>;
-};
-
 export type Wishlist = {
   __typename?: 'Wishlist';
   creator: User;
@@ -165,10 +185,4 @@ export type Wishlist = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   wishes: Array<Wish>;
-};
-
-export type WishlistInput = {
-  description?: InputMaybe<Scalars['String']['input']>;
-  name: Scalars['String']['input'];
-  wishIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };

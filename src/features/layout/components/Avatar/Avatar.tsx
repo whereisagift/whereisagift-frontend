@@ -4,8 +4,10 @@ import type React from "react";
 
 import { cn } from "@/utils";
 
+import avatar from "assets/avatar.png";
+
 export interface AvatarProps {
-  src: string;
+  src?: string | null;
   alt?: string;
   className?: string;
 }
@@ -22,7 +24,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         className,
       )}
     >
-      <img src={src} alt={alt} className="object-cover" />
+      <img src={src ?? avatar.src} alt={alt} className="object-cover" />
     </div>
   );
 };

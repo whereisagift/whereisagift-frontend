@@ -1,5 +1,5 @@
-mutation CreateWishList($wishlist: WishlistInput!) {
-	createWishlist(wishlistInput: $wishlist) {
+mutation CreateWishList($wishlist: CreateWishlistInput!) {
+	createWishlist(input: $wishlist) {
 		id
 		name
 		description
