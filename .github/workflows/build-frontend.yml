@@ -15,51 +15,48 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'production' || 'develop' }}
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/whereisagift/whereisagift-frontend
+          tags: |
+            type=sha,prefix=${{ github.ref_name == 'main' && 'production' || 'develop' }}-,
+            ${{ github.ref_name == 'main' && 'production' || 'develop' }}
 
-      - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push Docker Image
-        run: |
-          IMAGE_NAME=ghcr.io/whereisagift/whereisagift-frontend
-          TAG=${{ github.sha }}
-          BRANCH_TAG=${{ github.ref_name == 'main' && 'production' || 'develop' }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-          # Build the Docker image with the necessary tags (SHA, latest, production/develop)
-          docker build -f ./deploy/Dockerfile --build-arg NEXT_PUBLIC_TELEGRAM_BOT=${{ secrets.NEXT_PUBLIC_TELEGRAM_BOT }} -t $IMAGE_NAME:$TAG -t $IMAGE_NAME:latest -t $IMAGE_NAME:$BRANCH_TAG .
-
-          # Push the Docker images with the tags
-          docker push $IMAGE_NAME:$TAG
-          docker push $IMAGE_NAME:latest
-          docker push $IMAGE_NAME:$BRANCH_TAG
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          tags: ${{ steps.meta.outputs.tags }}
+          push: true
+          file: ./deploy/Dockerfile
+          cache-to: type=gha,mode=max
+          cache-from: type=gha
+          build-args: |
+            NEXT_PUBLIC_TELEGRAM_BOT=${{ secrets.NEXT_PUBLIC_TELEGRAM_BOT }}
 
   deploy:
     needs: build-and-publish
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'main' && 'production' || 'develop' }}
     steps:
-      - name: Checkout whereisagift-devops repository
-        uses: actions/checkout@v4
+      - name: Trigger application deployment
+        uses: fjogeleit/http-request-action@v1
         with:
-          repository: whereisagift/whereisagift-devops
-          token: ${{ secrets.DEPLOY_TOKEN }}
-
-      - name: Update frontend version in whereisagift-devops
-        run: |
-          BRANCH_NAME=${{ github.ref_name }}
-          
-          if [[ "$BRANCH_NAME" == "main" ]]; then
-            DOCKER_COMPOSE_PATH="./production/frontend/compose.yml"
-          else
-            DOCKER_COMPOSE_PATH="./develop/frontend/compose.yml"
-          fi
-          
-          # Обновляем compose.yml, заменяя версию образа
-          sed -i "s|image: ghcr.io/whereisagift/whereisagift-frontend:[^ ]*|image: ghcr.io/whereisagift/whereisagift-frontend:${{ github.sha }}|" "$DOCKER_COMPOSE_PATH"
-          
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add "$DOCKER_COMPOSE_PATH"
-          git commit -m "Update frontend image version in $DOCKER_COMPOSE_PATH to ${{ github.sha }}"
-          git push
+          url: ${{ secrets.DOKPLOY_TRIGGER_API }}
+          method: POST
+          customHeaders: |
+            {"x-api-key": "${{ secrets.DOKPLOY_TOKEN }}"}
+          data: |
+            {"applicationId": "${{ secrets.DOKPLOY_APP_ID }}"}

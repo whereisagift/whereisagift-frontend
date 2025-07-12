@@ -1,0 +1,17 @@
+mutation CreateWish($wish: CreateWishInput!) {
+	createWish(input: $wish) {
+		createdAt
+		description
+		id
+		img
+		link
+		name
+		price {
+			currency
+			value
+		}
+		rate
+		type
+		updatedAt
+	}
+}

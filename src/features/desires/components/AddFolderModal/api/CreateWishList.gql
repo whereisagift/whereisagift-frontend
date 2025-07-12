@@ -1,0 +1,16 @@
+mutation CreateWishList($wishlist: CreateWishlistInput!) {
+	createWishlist(input: $wishlist) {
+		id
+		name
+		description
+		wishes {
+			id
+			name
+			price {
+				currency
+				value
+			}
+			img
+		}
+	}
+}

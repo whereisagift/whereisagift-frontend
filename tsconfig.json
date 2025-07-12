@@ -23,8 +23,20 @@
     ],
     "baseUrl": "./src",
     "paths": {
+      "@/components": [
+        "./components"
+      ],
       "@/components/*": [
         "./components/*"
+      ],
+      "@/features/*": [
+        "./features/*"
+      ],
+      "@/utils/*": [
+        "./utils/*"
+      ],
+      "@/utils": [
+        "./utils"
       ],
       "@/ui": [
         "./components/ui"
@@ -32,14 +44,38 @@
       "@/ui/*": [
         "./components/ui/*"
       ],
+      "@/lib": [
+        "./lib"
+      ],
+      "@/lib/*": [
+        "./lib/*"
+      ],
+      "@/hooks": [
+        "./hooks"
+      ],
+      "@/hooks/*": [
+        "./hooks/*"
+      ],
+      "@/providers": [
+        "./providers"
+      ],
+      "@/providers/*": [
+        "./providers/*"
+      ],
+      "@/types": [
+        "./types"
+      ],
+      "@/types/*": [
+        "./types/*"
+      ],
       "@/pages/*": [
         "./pages/*"
       ],
-      "@/utils": [
-        "./utils"
+      "@/constants": [
+        "./constants"
       ],
-      "@/utils/*": [
-        "./utils/*"
+      "@/constants/*": [
+        "./constants/*"
       ]
     },
     "target": "ES2017"

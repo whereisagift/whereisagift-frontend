@@ -1,0 +1,7 @@
+schema:
+  - https://dev.whereisagift.com/graphql
+
+documents:
+  - "src/**/*.gql"
+  - "src/**/*.graphql"
+
